@@ -1,4 +1,7 @@
-ProjetoSistema-Jhon-Andrew
+Projeto Sistema-SGT
 ==========================
 
-Repositório do projeto de sistema de gerenciamento de táxis - Alunos => Jhon Nascimento, Andrew Gama
+Repositório do projeto de sistema de gerenciamento de táxis - SGT 
+Alunos
+Jhon Nascimento - 090713
+Andrew Gama     - 
