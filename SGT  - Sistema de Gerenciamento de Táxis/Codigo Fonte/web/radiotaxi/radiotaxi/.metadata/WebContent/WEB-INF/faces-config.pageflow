@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14108217003610" configfile="/radiotaxi/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf14114189114680" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14114189114682 pf14115250129682" inlinks="pf14114189114682" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="principal.xhtml" id="pf14115250129683" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14115250129682" path="/principal.xhtml"/>
+  <links id="pf14114189114682" target="pf14114189114680" source="pf14114189114680" outcome="erro"/>
+  <links id="pf14115250129682" target="pf14115250129683" source="pf14114189114680" outcome="sucesso" redirect="true"/>
+</pageflow:Pageflow>
