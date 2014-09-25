@@ -37,10 +37,6 @@ body{
 	overflow:hidden;	
 }
 
-#logoCompany {
-	float:left;
-}
-
 #usuarioLogado  {
 	float:right;
 	height:auto;
