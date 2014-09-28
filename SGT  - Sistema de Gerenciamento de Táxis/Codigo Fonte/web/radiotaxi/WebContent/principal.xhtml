@@ -6,7 +6,7 @@
  
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Meu Sistema</title>
+        <title>SGT - Sistema</title>
         <style type="text/css">
             body {background-color: #eeeeee; font-size: 12px}
         </style> 
@@ -19,20 +19,23 @@
                 </p:layoutUnit>  
  
                 <p:layoutUnit position="west" size="220">  
-                    <p:menu style="width: 95%">
+                	<h:form id="menuForm" >
+                    	<p:menu style="width: 95%">
 						    <p:submenu label="Cadastros">
 						        <p:menuitem  value="Usuario" icon="ui-icon ui-icon-person" url="/pag_cadastros/cadastroUsuario.xhtml"  />
 						        <p:menuitem  value="Cliente" icon="ui-icon ui-icon-person" url="/pag_cadastros/cadastroCliente.xhtml"  />
 						        <p:menuitem value="Bairro" icon="ui-icon ui-icon-person" url="/pag_cadastros/cadastroBairro.xhtml" />
 						    </p:submenu>
 						    <p:submenu label="Outros">
-						        <p:menuitem value="outro link" url="#" />
+						        <p:menuitem value="Identificar Clientes" icon="ui-icon ui-icon-person" url="identificacaoCliente.xhtml" />
 						        <p:menuitem value="outro link" url="#" />
 						    </p:submenu>
 						    <p:submenu>
-						        <p:menuitem value="Sair" url="#" icon="ui-icon ui-icon-power" />
+						    		<p:menuitem value="Logado como: #{loginBean.usuario.login}" url="#"/>
+						        	<p:menuitem value="Sair" url="#" action="#{loginBean.efetuaLogout}" icon="ui-icon ui-icon-power" />
 						    </p:submenu>
 						</p:menu>
+					</h:form>
                 </p:layoutUnit> 
                  
                 <p:layoutUnit position="center">  

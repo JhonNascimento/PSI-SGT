@@ -1,39 +1,27 @@
 package br.com.radiotaxi.model.dao;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.radiotaxi.model.bean.Usuario;
-@SuppressWarnings("unchecked")
+import br.com.radiotaxi.model.dao.JPAUtil;
+
 public class UsuarioDAO {
 	
-	private EntityManager entityManager;
 	
-	public UsuarioDAO(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public boolean existe(Usuario usuario) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		em.getTransaction().begin();
+		
+		Query query = em.createQuery("from Usuario where login = :login and senha = :senha")
+						.setParameter("login", usuario.getLogin())
+						.setParameter("senha", usuario.getSenha());
+
+		boolean encontrado = !query.getResultList().isEmpty();
+		em.getTransaction().commit();
+		em.close();
+
+		return encontrado;
 	}
-	public void cadastrar(Usuario usuario){
-		entityManager.persist(usuario);
-	}
-	public void alterar(Usuario usuario){
-		entityManager.merge(usuario);
-	}
-	public void excluir(Usuario usuario){
-		entityManager.remove(entityManager.merge(usuario));
-	}
-	public Usuario consultar(Long id){
-		return entityManager.getReference(Usuario.class, id);
-	}
-	public List<Usuario> listar(){
-		String jpql = "Select p from Usuario p order by nome";
-		Query query = entityManager.createQuery(jpql);
-		return query.getResultList();
-	}
-	
-	public Usuario buscaPorUsuario(String login) {
-		return entityManager.getReference(Usuario.class, login);
-	} 
-	
 
 }

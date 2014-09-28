@@ -16,6 +16,11 @@
 
 
 		<h:form id="dadosBairro">
+			<h2>
+					<h:outputText value="Novo Bairro" rendered="#{empty cadastroBairro.bairro.id}"/>
+					<h:outputText value="Editar Bairro" rendered="#{not empty cadastroBairro.bairro.id}"/>
+			</h2>
+		
 			<fieldset>
 				<legend>Dados do bairro</legend>
 				
@@ -48,7 +53,7 @@
 			
 		<h2>Listagem de bairros</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{cadastroBairro.listaBairros}" var="bairro"
+			<h:dataTable value="#{cadastroBairro.bairros}" var="bairro"
 				styleClass="dados" rowClasses="impar,par" >
 				<h:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
@@ -56,7 +61,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
-					<h:commandLink action="#{cadastroBairro.excluir}" 
+					<h:commandLink action="#{cadastroBairro.excluir(bairro)}" 
 								   value="Remover">
 						<f:ajax render="@form" />
 						<f:setPropertyActionListener 

@@ -1,68 +1,62 @@
 package br.com.radiotaxi.controller;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.EntityManager;
 
 import br.com.radiotaxi.model.bean.Bairro;
-import br.com.radiotaxi.model.dao.BairroDAO;
-import br.com.radiotaxi.model.dao.JPAUtil;
+import br.com.radiotaxi.model.dao.DAO;
 
 @ViewScoped
 @ManagedBean
-public class CadastroBairro {
+public class CadastroBairro implements Serializable{
 	//Atributos devem ser iniciados
 	private Bairro bairro = new Bairro();
+	public List<Bairro> bairros;
 	
-	public Bairro getBairro() {
-		return bairro;
+	public CadastroBairro() {
+		System.out.println("Instanciou BairroBean!");
 	}
 	
-	public void setBairro(Bairro bairro) {
-		this.bairro = bairro;
-	}
-	
-	//Atributo que guarda a colecao produtos armazenados em BD
-	public List<Bairro> listaBairros = new ArrayList<Bairro>();
-	
-	public List<Bairro> getListaBairros() {
-		return listaBairros;
-	}	
-
-	//Metodo invocado apos a classe ser carregada pelo servidor
-	@PostConstruct
-	public void carregarBairros(){
-		EntityManager em = JPAUtil.getEntityManager();
-		BairroDAO dao = new BairroDAO(em);
-		listaBairros = dao.listar();
-		em.close();
-	}
-	
-	public void excluir(){
-		EntityManager em = JPAUtil.getEntityManager();
-		BairroDAO dao = new BairroDAO(em);
-		em.getTransaction().begin();
-		dao.excluir(bairro);
-		em.getTransaction().commit();
-		em.close();
-		carregarBairros();
-	}
-
 	public void salvar(){
-		EntityManager em = JPAUtil.getEntityManager();
-		BairroDAO dao = new BairroDAO(em);
-		em.getTransaction().begin();
+		DAO<Bairro> dao = new DAO<Bairro>(Bairro.class);
 		if(bairro.getId()!=null){
 			dao.alterar(bairro);
 		}else{
 			dao.cadastrar(bairro);
 		}
-		em.getTransaction().commit();
-		em.close();
 		bairro  = new Bairro();
-		carregarBairros();
+		this.bairros = dao.listaTodos();
 	}
+	
+	@PostConstruct
+	public List<Bairro> getBairros() {
+		if(this.bairros == null){
+			System.out.println("Carregando bairros...");
+			this.bairros= new DAO<Bairro>(Bairro.class).listaTodos();
+		}
+		return this.bairros;
+	}
+	
+	public void limpaFormulario(){
+		this.bairro = new Bairro();
+	}
+	
+	public void excluir(Bairro bairro){
+		DAO<Bairro> dao = new DAO<Bairro>(Bairro.class);
+		dao.remove(bairro);
+		this.bairros = dao.listaTodos();
+	}
+	
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
+
+	
 }

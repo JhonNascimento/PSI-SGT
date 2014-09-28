@@ -15,6 +15,10 @@
 	<div class="container">
 			
 		<h:form id="dadosUsuario">
+			<h2>
+					<h:outputText value="Novo Usuário" rendered="#{empty cadastroUsuario.usuario.id}"/>
+					<h:outputText value="Editar Usuário" rendered="#{not empty cadastroUsuario.usuario.id}"/>
+			</h2>
 			<fieldset>
 				<legend>Cadastrar Usuario</legend>
 				
@@ -27,7 +31,7 @@
 						 rendered="#{cadastroUsuario.usuario.id != null}"
 						 readonly="true"/>
 						 
-					<h:outputText value="Nome:" for="nome"/>
+					<h:outputLabel value="Nome:" for="nome"/>
 					<h:inputText id="nome" 
 						 value="#{cadastroUsuario.usuario.nome}" 
 						 required="true" 
@@ -37,7 +41,7 @@
 					 <h:inputText id="email" 
 						 value="#{cadastroUsuario.usuario.email}"
 						 required="true" 
-						 requiredMessage="O Email é obrigatorio" />
+						 requiredMessage="O Email é obrigatorio" /> 
 					
 					<h:outputLabel value="login:" for="login"/>
 					 <h:inputText id="login" 
@@ -67,21 +71,26 @@
 			
 		<h2>Listagem de usuarios</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{cadastroUsuario.listaUsuarios}" var="usuario"
+			<h:dataTable value="#{cadastroUsuario.usuarios}" var="usuario"
 				styleClass="dados" rowClasses="impar,par" >
 				<h:column>
+				<f:facet name="header">Login:</f:facet>
+				<h:outputLink value="#{usuario.login}">#{usuario.login}</h:outputLink>
+			</h:column>
+				
+			 	<h:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					#{usuario.nome}
-				</h:column>
+				</h:column> 
 				
 				<h:column>
-				<f:facet name="header">e-Mail:</f:facet>
+				<f:facet name="header">Email:</f:facet>
 				<h:outputLink value="mailto:#{usuario.email}">#{usuario.email}</h:outputLink>
-			</h:column>
+			</h:column> 
 				
 				<h:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
-					<h:commandLink action="#{cadastroUsuario.excluir}" 
+					<h:commandLink action="#{cadastroUsuario.excluir(usuario)}" 
 								   value="Remover">
 						<f:ajax render="@form" />
 						<f:setPropertyActionListener 

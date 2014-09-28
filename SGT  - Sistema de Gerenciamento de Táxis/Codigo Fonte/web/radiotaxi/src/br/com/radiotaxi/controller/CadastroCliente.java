@@ -1,70 +1,59 @@
 package br.com.radiotaxi.controller;
-import java.util.ArrayList;
-
-
+import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.persistence.EntityManager;
 
 import br.com.radiotaxi.model.bean.Cliente;
-import br.com.radiotaxi.model.dao.ClienteDAO;
-import br.com.radiotaxi.model.dao.JPAUtil;
+import br.com.radiotaxi.model.dao.DAO;
 
 @ViewScoped
 @ManagedBean
-public class CadastroCliente {
+public class CadastroCliente  implements Serializable{
 	//Atributos devem ser iniciados
 	private Cliente cliente = new Cliente();
+	public List<Cliente> clientes;
 	
-	public Cliente getCliente () {
-		return cliente;
+	public CadastroCliente () {
+		System.out.println("Instanciou ClienteBean!");
 	}
 	
-	public void setCliente(Cliente cliente) {
-		this.cliente= cliente;
-	}
-	
-	//Atributo que guarda a colecao produtos armazenados em BD
-	public List<Cliente> listaClientes = new ArrayList<Cliente >();
-	
-	public List<Cliente> getListaClientes() {
-		return listaClientes;
-	}	
-
-	//Metodo invocado apos a classe ser carregada pelo servidor
-	@PostConstruct
-	public void carregarClientes(){
-		EntityManager em = JPAUtil.getEntityManager();
-		ClienteDAO dao = new ClienteDAO(em);
-		listaClientes = dao.listar();
-		em.close();
-	}
-	
-	public void excluir(){
-		EntityManager em = JPAUtil.getEntityManager();
-		ClienteDAO dao = new ClienteDAO(em);
-		em.getTransaction().begin();
-		dao.excluir(cliente);
-		em.getTransaction().commit();
-		em.close();
-		carregarClientes();
-	}
-
 	public void salvar(){
-		EntityManager em = JPAUtil.getEntityManager();
-		ClienteDAO dao = new ClienteDAO(em);
-		em.getTransaction().begin();
+		DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
 		if(cliente.getId()!=null){
 			dao.alterar(cliente);
 		}else{
 			dao.cadastrar(cliente);
 		}
-		em.getTransaction().commit();
-		em.close();
-		cliente  = new Cliente();
-		carregarClientes();
+		this.cliente = new Cliente();
+		this.clientes = dao.listaTodos();
 	}
+	
+	public List<Cliente> getClientes() {
+		if(this.clientes == null){
+			System.out.println("Carregando clientes...");
+			this.clientes = new DAO<Cliente>(Cliente.class).listaTodos();
+		}
+		return this.clientes;
+	}
+	
+	public void limpaFormulario(){
+		this.cliente = new Cliente();
+	}
+	
+	public void excluir(Cliente cliente){
+		DAO<Cliente> dao = new DAO<Cliente>(Cliente.class);
+		dao.remove(cliente);
+		this.clientes = dao.listaTodos();
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 }

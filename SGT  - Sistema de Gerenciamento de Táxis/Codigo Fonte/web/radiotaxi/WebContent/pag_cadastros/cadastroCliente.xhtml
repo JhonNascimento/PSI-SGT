@@ -14,8 +14,12 @@
 	<div id="blocoConteudo">
 	<div class="container">
 
-
 		<h:form id="dadosCliente">
+			<h2>
+					<h:outputText value="Novo Cliente" rendered="#{empty cadastroCliente.cliente.id}"/>
+					<h:outputText value="Editar Cliente" rendered="#{not empty cadastroCliente.cliente.id}"/>
+			</h2>
+			
 			<fieldset>
 				<legend>Dados do Cliente</legend>
 				
@@ -89,7 +93,7 @@
 			
 		<h2>Listagem de Cliente</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{cadastroCliente.listaClientes}" var="cliente"
+			<h:dataTable value="#{cadastroCliente.clientes}" var="cliente"
 				styleClass="dados" rowClasses="impar,par" >
 				<h:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
@@ -109,7 +113,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
-					<h:commandLink action="#{cadastroCliente.excluir}" 
+					<h:commandLink action="#{cadastroCliente.excluir(cliente)}" 
 								   value="Remover">
 						<f:ajax render="@form" />
 						<f:setPropertyActionListener 

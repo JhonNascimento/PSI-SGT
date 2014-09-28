@@ -2,10 +2,14 @@
   <persistence-unit name="radiotaxi" transaction-type="RESOURCE_LOCAL">
   
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    
+    <class>br.com.radiotaxi.model.bean.Bairro</class>
+    <class>br.com.radiotaxi.model.bean.Usuario</class>
+    <class>br.com.radiotaxi.model.bean.Cliente</class>
      
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/radiotaxi?autoReconnect=true"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/radiotaxi"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.password" value="root"/>
       
