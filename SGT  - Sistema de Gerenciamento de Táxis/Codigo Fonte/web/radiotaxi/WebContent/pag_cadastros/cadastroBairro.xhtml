@@ -61,22 +61,23 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
-					<h:commandLink action="#{cadastroBairro.excluir(bairro)}" 
-								   value="Remover">
+					<p:commandLink action="#{cadastroBairro.excluir(bairro)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
 						<f:ajax render="@form" />
 						<f:setPropertyActionListener 
 							target="#{cadastroBairro.bairro}" 
 							value="#{bairro}"/>
-					</h:commandLink>
+					</p:commandLink>
 				</h:column>
 				<h:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
-					<h:commandLink value="Alterar">
+					<p:commandLink>
+						<p:graphicImage value="/resources/imagens/botao_editar.png"/>
 						<f:ajax render="@form :dadosBairro" />
 						<f:setPropertyActionListener 
 							target="#{cadastroBairro.bairro}" 
 							value="#{bairro}"/>
-					</h:commandLink>
+					</p:commandLink>
 				</h:column>
 			</h:dataTable>
 		</h:form>

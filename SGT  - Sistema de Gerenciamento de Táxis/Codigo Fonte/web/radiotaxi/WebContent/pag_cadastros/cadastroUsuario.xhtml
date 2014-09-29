@@ -24,7 +24,7 @@
 				
 				<h:panelGrid columns="2">
 				
-					<h:outputText value="Id:" for="id" 
+					<h:outputLabel value="Id:" for="id" 
 					     rendered="#{cadastroUsuario.usuario.id != null}"/>
 					<h:inputText id="id" 
 						 value="#{cadastroUsuario.usuario.id}"
@@ -74,9 +74,9 @@
 			<h:dataTable value="#{cadastroUsuario.usuarios}" var="usuario"
 				styleClass="dados" rowClasses="impar,par" >
 				<h:column>
-				<f:facet name="header">Login:</f:facet>
-				<h:outputLink value="#{usuario.login}">#{usuario.login}</h:outputLink>
-			</h:column>
+					<f:facet name="header">Login</f:facet>
+					<h:outputText value="#{usuario.login}">#{usuario.login}</h:outputText>
+				</h:column>
 				
 			 	<h:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
@@ -84,23 +84,24 @@
 				</h:column> 
 				
 				<h:column>
-				<f:facet name="header">Email:</f:facet>
+				<f:facet name="header">Email</f:facet>
 				<h:outputLink value="mailto:#{usuario.email}">#{usuario.email}</h:outputLink>
 			</h:column> 
 				
 				<h:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
-					<h:commandLink action="#{cadastroUsuario.excluir(usuario)}" 
-								   value="Remover">
+					<p:commandLink  action="#{cadastroUsuario.excluir(usuario)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
 						<f:ajax render="@form" />
 						<f:setPropertyActionListener 
 							target="#{cadastroUsuario.usuario}" 
 							value="#{usuario}"/>
-					</h:commandLink>
+					</p:commandLink>
 				</h:column>
 				<h:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
-					<h:commandLink value="Alterar">
+					<h:commandLink>
+						<p:graphicImage value="/resources/imagens/botao_editar.png"/>
 						<f:ajax render="@form :dadosUsuario" />
 						<f:setPropertyActionListener 
 							target="#{cadastroUsuario.usuario}" 
