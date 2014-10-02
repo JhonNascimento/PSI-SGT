@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+		<h:form id="dadosMotorista">
+			<h2>
+					<h:outputText value="Novo Motorista" rendered="#{empty motoristaController.motorista.id}"/>
+					<h:outputText value="Editar Motorista" rendered="#{not empty motoristaController.motorista.id}"/>
+			</h2>
+			
+			<fieldset>
+				<legend>Dados do Motorista</legend>
+				
+				<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Id:" for="id" 
+					     rendered="#{motoristaController.motorista.id != null}"/>
+					<h:inputText id="id" 
+						 value="#{motoristaController.motorista.id}"
+						 rendered="#{motoristaController.motorista.id != null}"
+						 readonly="true"/>
+						 
+					<h:outputLabel value="Nome:" for="nome"/>
+					<h:inputText id="nome" 
+						 value="#{motoristaController.motorista.nome}" 
+						 required="true" 
+						 requiredMessage="O Nome é obrigatorio" />
+						 
+					<h:outputLabel value="Telefone:" for="telefone"/>
+					<h:inputText id="telefone" 
+						 value="#{motoristaController.motorista.telefone}" 
+						 required="true" 
+						 requiredMessage="O Telefone é obrigatorio" />
+					
+					<h:outputLabel value="Numero Habilitacao:" for="Numero Habilitacao"/>
+					<h:inputText id="cnh" 
+						 value="#{motoristaController.motorista.cnh}" />
+					
+					<h:outputLabel value="Rg:" for="Rg"/>
+					<h:inputText id="rg" 
+						 value="#{motoristaController.motorista.rg}" 
+						 required="true" 
+						 requiredMessage="O Rg é obrigatorio"/>
+					
+					<h:outputLabel value="Logradouro:" for="logradouro"/>
+					<h:inputText id="logradouro" 
+						 value="#{motoristaController.motorista.logradouro}" 
+						 required="true" 
+						 requiredMessage="O Logradouro é obrigatorio" />
+						 
+					<h:outputLabel value="CEP:" for="cep"/>
+					<h:inputText id="cep" 
+						 value="#{motoristaController.motorista.cep}" />
+					
+					<h:outputLabel value="Dt Nascimento:" for="Dt Nascimento:"/>
+					<h:inputText id="data_nascimento" 
+						 value="#{motoristaController.motorista.datanascimento}" 
+						 required="true" 
+						 requiredMessage="Data Nascimento é obrigatorio" />
+					 
+					<p:growl id="messages" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{motoristaController.salvar}">
+							<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h2>Listagem de Motorista</h2>
+		<h:form id="tabela">
+			<h:dataTable value="#{motoristaController.motoristas}" var="motorista"
+				styleClass="dados" rowClasses="impar,par" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{motorista.nome}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Telefone" /></f:facet>
+					#{motorista.telefone}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cnh" /></f:facet>
+					#{motorista.cnh}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Rg" /></f:facet>
+					#{motorista.rg}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<p:commandLink action="#{motoristaController.excluir(motorista)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{motoristaController.motorista}" 
+							value="#{motorista}"/>
+					</p:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+						<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosMotorista" />
+						<f:setPropertyActionListener 
+							target="#{motoristaController.motorista}" 
+							value="#{motorista}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	
+	</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>

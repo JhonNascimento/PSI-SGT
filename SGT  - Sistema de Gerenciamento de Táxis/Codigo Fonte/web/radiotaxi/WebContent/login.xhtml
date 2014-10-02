@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition template="/template_login.xhtml">
+		<ui:define name="titulo">Login</ui:define>
+		<ui:define name="corpo">
+			<h:form id="formLogin">
+				<h2>Bem Vindo ao Sistema - SGT</h2>
+				<p:fieldset>
+					<h:outputLabel for="usuarioLogin" value="Usuário" />
+					<p:inputText id="usuarioLogin" value="#{loginController.usuario.login}"
+					required="true" requiredMessage="O login é obrigatorio" />
+
+					<h:outputLabel for="usuarioSenha" value="senha:" />
+					<p:password id="usuarioSenha" value="#{loginController.usuario.senha}"
+					required="true" requiredMessage="A senha é obrigatorio" />
+
+			 		<p:growl id="messages"/>
+
+					<h:commandButton value="Efetuar Login" action="#{loginController.efetuaLogin}"/>
+
+								
+				</p:fieldset>
+			</h:form>
+		</ui:define>	
+	</ui:composition>
+</html>

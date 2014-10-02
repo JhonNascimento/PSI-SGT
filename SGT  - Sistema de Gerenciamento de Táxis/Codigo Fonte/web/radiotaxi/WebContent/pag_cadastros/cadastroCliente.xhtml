@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+		<h:form id="dadosCliente">
+			<h2>
+					<h:outputText value="Novo Cliente" rendered="#{empty clienteController.cliente.id}"/>
+					<h:outputText value="Editar Cliente" rendered="#{not empty clienteController.cliente.id}"/>
+			</h2>
+			
+			<fieldset>
+				<legend>Dados do Cliente</legend>
+				
+				<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Id:" for="id" 
+					     rendered="#{clienteController.cliente.id != null}"/>
+					<h:inputText id="id" 
+						 value="#{clienteController.cliente.id}"
+						 rendered="#{clienteController.cliente.id != null}"
+						 readonly="true"/>
+						 
+					<h:outputLabel value="Nome:" for="nome"/>
+					<h:inputText id="nome" 
+						 value="#{clienteController.cliente.nome}" 
+						 required="true" 
+						 requiredMessage="O Nome é obrigatorio" />
+						 
+					<h:outputLabel value="Telefone:" for="telefone"/>
+					<h:inputText id="telefone" 
+						 value="#{clienteController.cliente.telefone}" 
+						 required="true" 
+						 requiredMessage="O Telefone é obrigatorio" />
+					
+					<h:outputLabel value="Classificação:" for="classificacao"/>
+					<h:inputText id="classificacao" 
+						 value="#{clienteController.cliente.classificacao}" />
+					
+					<h:outputLabel value="Email:" for="email"/>
+					<h:inputText id="email" 
+						 value="#{clienteController.cliente.email}" />
+					
+					<h:outputLabel value="Logradouro:" for="logradouro"/>
+					<h:inputText id="logradouro" 
+						 value="#{clienteController.cliente.logradouro}" 
+						 required="true" 
+						 requiredMessage="O Logradouro é obrigatorio" />
+						 
+					<h:outputLabel value="CEP:" for="cep"/>
+					<h:inputText id="cep" 
+						 value="#{clienteController.cliente.cep}" />
+					
+					<h:outputLabel value="Bairro:" for="bairro"/>
+					<h:inputText id="bairro" 
+						 value="#{clienteController.cliente.bairro}" 
+						 required="true" 
+						 requiredMessage="O bairro é obrigatorio" />
+		
+					<h:outputLabel value="Cidade:" for="cidade"/>
+					<h:inputText id="cidade" 
+						 value="#{clienteController.cliente.cidade}" 
+						 required="true" 
+						 requiredMessage="A cidade é obrigatorio" />
+						 	 
+					<h:outputLabel value="UF:" for="uf"/>
+					<h:inputText id="uf" 
+						 value="#{clienteController.cliente.uf}" 
+						 required="true" 
+						 requiredMessage="A UF é obrigatorio" /> 
+					<p:growl id="messages" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{clienteController.salvar}">
+							<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h2>Listagem de Cliente</h2>
+		<h:form id="tabela">
+			<h:dataTable value="#{clienteController.clientes}" var="cliente"
+				styleClass="dados" rowClasses="impar,par" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{cliente.nome}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Telefone" /></f:facet>
+					#{cliente.telefone}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Endereço" /></f:facet>
+					#{cliente.logradouro}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
+					#{cliente.bairro}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<h:commandLink action="#{clienteController.excluir(cliente)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{clienteController.cliente}" 
+							value="#{cliente}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosCliente" />
+						<f:setPropertyActionListener 
+							target="#{clienteController.cliente}" 
+							value="#{cliente}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	
+	</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>

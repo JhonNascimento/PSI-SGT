@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+
+		<h:form id="dadosBairro">
+		
+			<fieldset>
+				<legend>Indentificar Cliente</legend>
+				
+				<h:panelGrid columns="2">
+						 
+					<h:outputLabel value="Telefone:" for="Telefone"/>
+					
+					<h:inputText value="#{clienteController.cliente.telefone}">    
+                    <f:ajax event="keyup" execute="@form"
+                    	listener="#{clienteController.filtrarMovimento}" render="tabela"/>
+               		 </h:inputText>
+                	            
+                	<f:facet name="footer">            
+                	</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h2>Clientes Encontrados</h2>
+			<h:dataTable id="tabela" var="cliente" value="#{clienteController.cliente}" prependId="false"
+				styleClass="dados" rowClasses="impar,par" >
+				
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{cliente.nome}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"><h:outputText value="Logradouro" /></f:facet>
+					#{cliente.logradouro}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nova Corrida" /></f:facet>
+				<!--  	<p:commandLink action="">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="" 
+							value=""/>
+					</p:commandLink> -->
+				</h:column>
+			</h:dataTable>
+	
+	</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>
