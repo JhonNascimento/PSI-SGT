@@ -1,0 +1,145 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+
+		<h:form id="buscaTuristico">
+		
+			<fieldset>
+				<legend>Buscar Corridas</legend>
+				
+				<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Cliente:" for="cliente" />
+					<h:inputText id="cliente" 
+						 value=""
+						 required="true"
+						 requiredMessage="Nome do cliente obrigatorio"  />
+						 
+					<h:outputLabel value="Motorista:" for="motorista"/>
+					<h:inputText id="motorista" 
+						 value="" 
+						 required="true" 
+						 requiredMessage="Nome do motorista obrigatorio" />
+					
+					<p:growl id="messages" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Buscar" action="#"></h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+				
+			</fieldset>
+		</h:form>
+	
+			<h:form id="dadosCorrida">
+		
+			<fieldset>
+				<legend>Cadastrar Corrida</legend>
+				
+				<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Nome do Cliente:" for="cliente" />
+					<h:inputText id="cliente" 
+						 value="#{corridaController.corrida.cliente}"
+						 required="true"
+						 requiredMessage="Nome do cliente obrigatorio"  />
+						 
+					<h:outputLabel value="Telefone" for="telefone"/>
+					<h:inputText id="telefone" 
+						 value="#{corridaController.corrida.telefone}" 
+						 required="true" 
+						 requiredMessage="Telefone obrigatorio" />
+					
+					<h:outputLabel value="Logradouro:" for="logradouro"/>
+					<h:inputText id="logradouro" 
+						 value="#{corridaController.corrida.logradouro}" 
+						 required="false" 
+						 />
+					
+					<h:outputLabel value="Cidade:" for="cidade" />
+					<h:inputText id="cidade"
+						value="#{corridaController.corrida.cidade}"
+						required="true"
+						/>
+						
+					<h:outputLabel value="Motorista:" for="motorista"/>
+					<h:inputText id="motorista" 
+						 value="#{corridaController.corrida.motorista}" 
+						 required="true" 
+						 requiredMessage="Motorista obrigatorio" />
+					
+					<p:growl id="messages" />
+						 
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{corridaController.salvar}">
+						<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+				
+			</fieldset>
+		</h:form>
+		
+		<h2>Listagem de corridas</h2>
+		<h:form id="tabela">
+			<h:dataTable value="#{corridaController.corridas}" var="corrida"
+				styleClass="dados" rowClasses="impar,par" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{corrida.cliente}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Telefone" /></f:facet>
+					#{corrida.telefone}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Cidade" /></f:facet>
+					#{corrida.cidade}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Motorista" /></f:facet>
+					#{corrida.motorista}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<h:commandLink action="#{corridaController.excluir(corrida)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{corridaController.corrida}" 
+							value="#{corrida}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosCorrida" />
+						<f:setPropertyActionListener 
+							target="#{corridaController.corrida}" 
+							value="#{corrida}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>

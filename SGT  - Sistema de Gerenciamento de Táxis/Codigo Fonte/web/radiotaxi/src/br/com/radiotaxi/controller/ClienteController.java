@@ -7,6 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.radiotaxi.model.bean.Bairro;
 import br.com.radiotaxi.model.bean.Cliente;
+import br.com.radiotaxi.model.bean.Estado;
 import br.com.radiotaxi.model.dao.ClienteDAO;
 import br.com.radiotaxi.model.dao.DAO;
 
@@ -16,6 +17,7 @@ public class ClienteController  implements Serializable{
 	//Atributos devem ser iniciados
 	private Cliente cliente = new Cliente();
 	public List<Cliente> clientes;
+	private Object session;
 	
 	public ClienteController () {
 		System.out.println("Instanciou ClienteBean!");
