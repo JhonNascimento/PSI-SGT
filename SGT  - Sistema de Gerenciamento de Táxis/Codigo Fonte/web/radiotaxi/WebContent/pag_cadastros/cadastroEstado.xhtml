@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+
+		<h:form id="dadosEstado">
+			<h2>
+					<h:outputText value="Novo Estado" rendered="#{empty estadoController.estado.id}"/>
+					<h:outputText value="Editar Estado" rendered="#{not empty estadoController.estado.id}"/>
+			</h2>
+		
+			<fieldset>
+				<legend>Dados do estado</legend>
+				
+				<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Id:" for="id" 
+					     rendered="#{estadoController.estado.id != null}"/>
+					<h:inputText id="id" 
+						 value="#{estadoController.estado.id}"
+						 rendered="#{estadoController.estado.id != null}"
+						 readonly="true"/>
+						 
+					<h:outputLabel value="Nome:" for="nome"/>
+					<h:inputText id="nome" 
+						 value="#{estadoController.estado.nome}" 
+						 required="true" 
+						 requiredMessage="O Nome é obrigatorio" />
+					
+					<p:growl id="messages" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{estadoController.salvar}">
+							<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h2>Listagem de estados</h2>
+		<h:form id="tabela">
+			<h:dataTable value="#{estadoController.estados}" var="estado"
+				styleClass="dados" rowClasses="impar,par" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{estado.nome}
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<h:commandLink action="#{estadoController.excluir(estado)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{estadoController.estado}" 
+							value="#{estado}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosEstado" />
+						<f:setPropertyActionListener 
+							target="#{estadoController.estado}" 
+							value="#{estado}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	
+	</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>
