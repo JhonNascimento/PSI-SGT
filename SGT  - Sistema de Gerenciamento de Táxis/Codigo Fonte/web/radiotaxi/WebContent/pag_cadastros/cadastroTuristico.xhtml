@@ -1,0 +1,115 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+
+		<h:form id="dadosTuristico">
+			<h2>
+					<h:outputText value="Novo Ponto Turistico" rendered="#{empty turisticoController.turistico.id}"/>
+					<h:outputText value="Editar Turistico" rendered="#{not empty turisticoController.turistico.id}"/>
+			</h2>
+		
+			<fieldset>
+				<legend>Dados do Ponto Turistico</legend>
+				
+				<h:panelGrid columns="2">
+				
+					<h:outputLabel value="Id:" for="id" 
+					     rendered="#{turisticoController.turistico.id != null}"/>
+					<h:inputText id="id" 
+						 value="#{turisticoController.turistico.id}"
+						 rendered="#{turisticoController.turistico.id != null}"
+						 readonly="true"/>
+						 
+					<h:outputLabel value="Nome:" for="nome"/>
+					<h:inputText id="nome" 
+						 value="#{turisticoController.turistico.nome}" 
+						 required="true" 
+						 requiredMessage="O Nome obrigatorio" />
+					
+					<h:outputLabel value="Logradouro:" for="logradouro"/>
+					<h:inputText id="logradouro" 
+						 value="#{turisticoController.turistico.logradouro}" 
+						 required="true" 
+						 requiredMessage="O logradouro obrigatorio" />
+					
+					<h:outputLabel value="Bairro:" for="bairro"/>
+					<h:inputText id="bairro" 
+						 value="#{turisticoController.turistico.bairro}" 
+						 required="true" 
+						 requiredMessage="O bairro obrigatorio" />
+					
+					<h:outputLabel value="Cidade:" for="cidade"/>
+					<h:inputText id="cidade" 
+						 value="#{turisticoController.turistico.cidade}" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{turisticoController.salvar}">
+							<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h2>Listagem de Pontos Turisticos</h2>
+		<h:form id="tabela">
+			<h:dataTable value="#{turisticoController.turisticos}" var="turistico"
+				styleClass="dados" rowClasses="impar,par" >
+				<h:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{turistico.nome}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"><h:outputText value="Logradouro" /></f:facet>
+					#{turistico.logradouro}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
+					#{turistico.bairro}
+				</h:column>
+			
+				<h:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<h:commandLink action="#{turisticoController.excluir(turistico)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{turisticoController.turistico}" 
+							value="#{turistico}"/>
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosTuristico" />
+						<f:setPropertyActionListener 
+							target="#{turisticoController.turistico}" 
+							value="#{turistico}"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	
+	</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>
