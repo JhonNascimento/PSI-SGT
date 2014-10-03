@@ -70,7 +70,5 @@ public class ClienteController  implements Serializable{
         	DAO<Bairro> daodao = new DAO<Bairro>(Bairro.class);
             daodao.listaTodos();
         }
-
     }
-
 }
