@@ -51,15 +51,19 @@
 			</fieldset>
 		</h:form>
 			
-		<h2>Listagem de bairros</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{bairroController.bairros}" var="bairro"
+			<p:dataTable value="#{bairroController.bairros}" var="bairro"
 				styleClass="dados" rowClasses="impar,par" >
-				<h:column>
+				<f:facet name="header">
+			        Lista de Bairros
+			    </f:facet>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					#{bairro.nome}
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
 					<h:commandLink action="#{bairroController.excluir(bairro)}">
 						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
@@ -68,8 +72,9 @@
 							target="#{bairroController.bairro}" 
 							value="#{bairro}"/>
 					</h:commandLink>
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
 					<h:commandLink>
 					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
@@ -78,8 +83,9 @@
 							target="#{bairroController.bairro}" 
 							value="#{bairro}"/>
 					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				
+			</p:dataTable>
 		</h:form>
 	
 	</div>

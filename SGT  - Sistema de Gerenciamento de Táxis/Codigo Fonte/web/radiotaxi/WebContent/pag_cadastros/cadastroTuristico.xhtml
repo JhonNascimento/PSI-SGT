@@ -24,7 +24,7 @@
 			<fieldset>
 				<legend>Dados do Ponto Turistico</legend>
 				
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="4">
 				
 					<h:outputLabel value="Id:" for="id" 
 					     rendered="#{turisticoController.turistico.id != null}"/>
@@ -53,7 +53,11 @@
 					
 					<h:outputLabel value="Cidade:" for="cidade"/>
 					<h:inputText id="cidade" 
-						 value="#{turisticoController.turistico.cidade}" />
+						 value="#{turisticoController.turistico.cidade}" 
+						 required="true" 
+						 requiredMessage="Campo cidade obrigatorio" />
+						 
+					 <p:growl id="messages" />
 					
 					<f:facet name="footer">
 						<h:commandButton value="Salvar" action="#{turisticoController.salvar}">
@@ -65,26 +69,30 @@
 			</fieldset>
 		</h:form>
 			
-		<h2>Listagem de Pontos Turisticos</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{turisticoController.turisticos}" var="turistico"
+			<p:dataTable value="#{turisticoController.turisticos}" var="turistico"
 				styleClass="dados" rowClasses="impar,par" >
-				<h:column>
+				
+				<f:facet name="header">
+			        Lista de Pontos Turísticos
+			    </f:facet>
+			    
+				<p:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					#{turistico.nome}
-				</h:column>
+				</p:column>
 				
-				<h:column>
+				<p:column>
 					<f:facet name="header"><h:outputText value="Logradouro" /></f:facet>
 					#{turistico.logradouro}
-				</h:column>
+				</p:column>
 				
-				<h:column>
+				<p:column>
 					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
 					#{turistico.bairro}
-				</h:column>
+				</p:column>
 			
-				<h:column>
+				<p:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
 					<h:commandLink action="#{turisticoController.excluir(turistico)}">
 						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
@@ -93,8 +101,9 @@
 							target="#{turisticoController.turistico}" 
 							value="#{turistico}"/>
 					</h:commandLink>
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
 					<h:commandLink>
 					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
@@ -103,8 +112,9 @@
 							target="#{turisticoController.turistico}" 
 							value="#{turistico}"/>
 					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				
+			</p:dataTable>
 		</h:form>
 	
 	</div>

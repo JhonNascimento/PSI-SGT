@@ -69,26 +69,30 @@
 			</fieldset>
 		</h:form>
 			
-		<h2>Listagem de usuarios</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{usuarioController.usuarios}" var="usuario"
+			<p:dataTable value="#{usuarioController.usuarios}" var="usuario"
 				styleClass="dados" rowClasses="impar,par" >
-				<h:column>
-				<f:facet name="header">Login:</f:facet>
-				<h:outputLink value="#{usuario.login}">#{usuario.login}</h:outputLink>
-			</h:column>
 				
-			 	<h:column>
+				<f:facet name="header">
+			        Lista de Usuários
+			    </f:facet>
+				
+				<p:column>
+					<f:facet name="header">Login:</f:facet>
+					<h:outputLink value="#{usuario.login}">#{usuario.login}</h:outputLink>
+				</p:column>
+				
+			 	<p:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					#{usuario.nome}
-				</h:column> 
+				</p:column> 
 				
-				<h:column>
-				<f:facet name="header">Email:</f:facet>
-				<h:outputLink value="mailto:#{usuario.email}">#{usuario.email}</h:outputLink>
-			</h:column> 
+				<p:column>
+					<f:facet name="header">Email:</f:facet>
+					<h:outputLink value="mailto:#{usuario.email}">#{usuario.email}</h:outputLink>
+				</p:column> 
 				
-				<h:column>
+				<p:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
 					<p:commandLink  action="#{usuarioController.excluir(usuario)}">
 						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
@@ -97,8 +101,9 @@
 							target="#{usuarioController.usuario}" 
 							value="#{usuario}"/>
 					</p:commandLink>
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
 					<h:commandLink>
 					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
@@ -107,8 +112,9 @@
 							target="#{usuarioController.usuario}" 
 							value="#{usuario}"/>
 					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				
+			</p:dataTable>
 		</h:form>	
 
 </div>

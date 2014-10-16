@@ -14,36 +14,10 @@
 	<div id="blocoConteudo">
 	<div class="container">
 
-
-		<h:form id="buscaTuristico">
-		
-			<fieldset>
-				<legend>Buscar Corridas</legend>
-				
-				<h:panelGrid columns="2">
-				
-					<h:outputLabel value="Cliente:" for="cliente" />
-					<h:inputText id="cliente" 
-						 value=""
-						 required="true"
-						 requiredMessage="Nome do cliente obrigatorio"  />
-						 
-					<h:outputLabel value="Motorista:" for="motorista"/>
-					<h:inputText id="motorista" 
-						 value="" 
-						 required="true" 
-						 requiredMessage="Nome do motorista obrigatorio" />
-					
-					<p:growl id="messages" />
-					
-					<f:facet name="footer">
-						<h:commandButton value="Buscar" action="#"></h:commandButton>
-					</f:facet>
-					
-				</h:panelGrid>
-				
-			</fieldset>
-		</h:form>
+			<h2>
+					<h:outputText value="Nova Corrida" rendered="#{empty corridaController.corrida.id}"/>
+					<h:outputText value="Editar Corrida" rendered="#{not empty corridaController.corrida.id}"/>
+			</h2>
 	
 			<h:form id="dadosCorrida">
 		
@@ -51,6 +25,13 @@
 				<legend>Cadastrar Corrida</legend>
 				
 				<h:panelGrid columns="2">
+					
+					<h:outputLabel value="Id:" for="id" 
+					     rendered="#{corridaController.corrida.id != null}"/>
+					<h:inputText id="id" 
+						 value="#{corridaController.corrida.id}"
+						 rendered="#{corridaController.corrida.id != null}"
+						 readonly="true"/>
 				
 					<h:outputLabel value="Nome do Cliente:" for="cliente" />
 					<h:inputText id="cliente" 
@@ -95,27 +76,34 @@
 			</fieldset>
 		</h:form>
 		
-		<h2>Listagem de corridas</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{corridaController.corridas}" var="corrida"
+			<p:dataTable value="#{corridaController.corridas}" var="corrida"
 				styleClass="dados" rowClasses="impar,par" >
-				<h:column>
+				<f:facet name="header">
+			        Lista de Corridas
+			    </f:facet>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					#{corrida.cliente}
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Telefone" /></f:facet>
 					#{corrida.telefone}
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Cidade" /></f:facet>
 					#{corrida.cidade}
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Motorista" /></f:facet>
 					#{corrida.motorista}
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
 					<h:commandLink action="#{corridaController.excluir(corrida)}">
 						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
@@ -124,8 +112,9 @@
 							target="#{corridaController.corrida}" 
 							value="#{corrida}"/>
 					</h:commandLink>
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
 					<h:commandLink>
 					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
@@ -134,8 +123,9 @@
 							target="#{corridaController.corrida}" 
 							value="#{corrida}"/>
 					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				
+			</p:dataTable>
 		</h:form>
 </div>
 </div>

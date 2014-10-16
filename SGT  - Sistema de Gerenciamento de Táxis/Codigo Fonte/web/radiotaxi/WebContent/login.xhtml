@@ -10,13 +10,13 @@
 		<ui:define name="titulo">Login</ui:define>
 		<ui:define name="corpo">
 			<h:form id="formLogin">
-				<h2>Bem Vindo ao Sistema - SGT</h2>
+
 				<p:fieldset>
-					<h:outputLabel for="usuarioLogin" value="Usuário" />
+					<h:outputLabel for="usuarioLogin" value="Login:" />
 					<p:inputText id="usuarioLogin" value="#{loginController.usuario.login}"
 					required="true" requiredMessage="O login é obrigatorio" />
 
-					<h:outputLabel for="usuarioSenha" value="senha:" />
+					<h:outputLabel for="usuarioSenha" value="Senha:" />
 					<p:password id="usuarioSenha" value="#{loginController.usuario.senha}"
 					required="true" requiredMessage="A senha é obrigatorio" />
 

@@ -24,4 +24,10 @@
     <url-pattern>*.xhtml</url-pattern>
   </filter-mapping>  -->
   
+   <context-param> 
+		<param-name>primefaces.THEME</param-name> 
+		<param-value>blitzer</param-value> 
+   </context-param> 
+  
+  
 </web-app>

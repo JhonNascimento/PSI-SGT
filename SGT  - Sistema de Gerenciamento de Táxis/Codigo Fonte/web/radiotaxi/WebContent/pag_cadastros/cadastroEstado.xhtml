@@ -53,13 +53,19 @@
 			
 		<h2>Listagem de estados</h2>
 		<h:form id="tabela">
-			<h:dataTable value="#{estadoController.estados}" var="estado"
+			<p:dataTable value="#{estadoController.estados}" var="estado"
 				styleClass="dados" rowClasses="impar,par" >
-				<h:column>
+				
+				<f:facet name="header">
+			        Lista de Estados
+			    </f:facet>
+			    
+				<p:column>
 					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
 					#{estado.nome}
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
 					<h:commandLink action="#{estadoController.excluir(estado)}">
 						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
@@ -68,8 +74,9 @@
 							target="#{estadoController.estado}" 
 							value="#{estado}"/>
 					</h:commandLink>
-				</h:column>
-				<h:column>
+				</p:column>
+				
+				<p:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
 					<h:commandLink>
 					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
@@ -78,8 +85,10 @@
 							target="#{estadoController.estado}" 
 							value="#{estado}"/>
 					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				
+			</p:dataTable>
+			
 		</h:form>
 	
 	</div>
