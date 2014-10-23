@@ -13,6 +13,10 @@ import br.com.radiotaxi.model.dao.DAO;
 @ViewScoped
 @ManagedBean
 public class EstadoController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -244785346947570218L;
 	//Atributos devem ser iniciados
 	private Estado estado = new Estado();
 	public List<Estado> estados;

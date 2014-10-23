@@ -1,13 +1,15 @@
 package br.com.radiotaxi.controller;
 import java.io.Serializable;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import br.com.radiotaxi.model.bean.Cidade;
+import br.com.radiotaxi.model.bean.Estado;
 import br.com.radiotaxi.model.dao.DAO;
 
 @ViewScoped
@@ -16,13 +18,32 @@ public class CidadeController implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1875277855667673050L;
+	
 	//Atributos devem ser iniciados
 	private Cidade cidade = new Cidade();
 	public List<Cidade> cidades;
 	
+	public List<SelectItem> estadosSelect;
+	
 	public CidadeController() {
 		System.out.println("Instanciou CidadeBean!");
+	}
+	
+	public List<SelectItem> getEstadosSelect() {
+		if(this.estadosSelect == null){
+			estadosSelect = new ArrayList<SelectItem>();
+			List<Estado> listaEstados = new DAO<Estado>(Estado.class).listaTodos();
+			if(listaEstados != null && !listaEstados.isEmpty()){
+				SelectItem item;
+				for(Estado estadoLista : listaEstados){
+					item = new SelectItem(estadoLista, 	estadoLista.getNome() + " - " + estadoLista.getSigla());
+					estadosSelect.add(item);
+				}
+			}
+		}
+		
+		return estadosSelect;
 	}
 	
 	public void salvar(){

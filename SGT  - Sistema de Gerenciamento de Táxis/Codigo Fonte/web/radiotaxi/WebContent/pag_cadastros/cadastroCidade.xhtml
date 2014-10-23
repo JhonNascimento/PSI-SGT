@@ -38,6 +38,17 @@
 						 value="#{cidadeController.cidade.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome é obrigatorio" />
+						 
+					<h:outputLabel value="Estado:" for="estado"/>	 
+					<h:selectOneMenu 
+						 id="estado" 
+						 value="#{cidadeController.cidade.estado}" 
+						 converter="entityConverter" 
+						 required="true" 
+						 requiredMessage="O Estado é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um estado" itemValue="" />
+                        	<f:selectItems value="#{cidadeController.estadosSelect}" />
+                    </h:selectOneMenu>   
 					
 					<p:growl id="messages" />
 					
@@ -63,6 +74,11 @@
 				<p:column>
 					<f:facet name="header"><h:outputText value="Cidade" /></f:facet>
 					#{cidade.nome}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Estado" /></f:facet>
+					#{cidade.estado.nome}
 				</p:column>
 				
 				<p:column>

@@ -37,7 +37,7 @@ public class BairroController implements Serializable{
 			if(listaCidades != null && !listaCidades.isEmpty()){
 				SelectItem item;
 				for(Cidade cidadeLista : listaCidades){
-					item = new SelectItem(cidadeLista, 	cidadeLista.getNome());
+					item = new SelectItem(cidadeLista, 	cidadeLista.getNome() + " - " + cidadeLista.getEstado().getNome());
 					cidadesSelect.add(item);
 				}
 			}

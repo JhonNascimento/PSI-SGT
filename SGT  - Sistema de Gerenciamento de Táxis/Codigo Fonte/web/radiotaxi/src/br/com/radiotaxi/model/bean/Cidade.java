@@ -2,6 +2,7 @@ package br.com.radiotaxi.model.bean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import br.com.radiotaxi.converter.AbstractEntity;
 @Entity
@@ -17,6 +18,15 @@ public class Cidade extends AbstractEntity {
 	private Long id;
 	private String nome;
 	
+	@ManyToOne
+	private Estado estado;
+	
+	public Estado getEstado() {
+		return estado;
+	}
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 	//Metodos de GET e SET...
 	public Long getId() {
 		return id;
