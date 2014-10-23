@@ -20,7 +20,7 @@
 					<h:outputText value="Editar Cliente" rendered="#{not empty clienteController.cliente.id}"/>
 			</h2>
 			
-			<p:fieldset>
+			<fieldset>
 				<legend>Dados do Cliente</legend>
 				
 				<h:panelGrid columns="4">
@@ -44,10 +44,6 @@
 						 required="true" 
 						 requiredMessage="O Telefone é obrigatorio" />
 					
-					<h:outputLabel value="Classificação:" for="classificacao"/>
-					<h:inputText id="classificacao" 
-						 value="#{clienteController.cliente.classificacao}" />
-					
 					<h:outputLabel value="Email:" for="email"/>
 					<h:inputText id="email" 
 						 value="#{clienteController.cliente.email}" />
@@ -62,23 +58,17 @@
 					<h:inputText id="cep" 
 						 value="#{clienteController.cliente.cep}" />
 					
-					<h:outputLabel value="Bairro:" for="bairro"/>
-					<h:inputText id="bairro" 
+					<h:outputLabel value="Bairro:" for="bairro"/>	 
+					<h:selectOneMenu 
+						 id="bairro" 
 						 value="#{clienteController.cliente.bairro}" 
+						 converter="entityConverter" 
 						 required="true" 
-						 requiredMessage="O bairro é obrigatorio" />
-		
-					<h:outputLabel value="Cidade:" for="cidade"/>
-					<h:inputText id="cidade" 
-						 value="#{clienteController.cliente.cidade}" 
-						 required="true" 
-						 requiredMessage="A cidade é obrigatorio" />
-						 	 
-					<h:outputLabel value="UF:" for="uf"/>
-					<h:inputText id="uf" 
-						 value="#{clienteController.cliente.uf}" 
-						 required="true" 
-						 requiredMessage="A UF é obrigatorio" /> 
+						 requiredMessage="O Bairro é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
+                        	<f:selectItems value="#{clienteController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
+                    </h:selectOneMenu>  
+						 
 					<p:growl id="messages" />
 					
 					<f:facet name="footer">
@@ -88,7 +78,7 @@
 					</f:facet>
 					
 				</h:panelGrid>
-			</p:fieldset>
+			</fieldset>
 		</h:form>
 			
 		<h:form id="tabela">
@@ -112,7 +102,7 @@
 				</p:column>
 				<p:column>
 					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
-					#{cliente.bairro}
+					#{cliente.bairro.nome}
 				</p:column>
 				<p:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>

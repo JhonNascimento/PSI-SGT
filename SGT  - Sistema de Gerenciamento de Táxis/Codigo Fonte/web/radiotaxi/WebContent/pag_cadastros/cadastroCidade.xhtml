@@ -15,45 +15,34 @@
 	<div class="container">
 
 
-		<h:form id="dadosBairro">
+		<h:form id="dadosCidade">
 			<h2>
-					<h:outputText value="Novo Bairro" rendered="#{empty bairroController.bairro.id}"/>
-					<h:outputText value="Editar Bairro" rendered="#{not empty bairroController.bairro.id}"/>
+					<h:outputText value="Nova Cidade" rendered="#{empty cidadeController.cidade.id}"/>
+					<h:outputText value="Editar Cidade" rendered="#{not empty cidadeController.cidade.id}"/>
 			</h2>
 		
 			<fieldset>
-				<legend>Dados do bairro</legend>
+				<legend>Dados do cidade</legend>
 				
 				<h:panelGrid columns="2">
 				
 					<h:outputLabel value="Id:" for="id" 
-					     rendered="#{bairroController.bairro.id != null}"/>
+					     rendered="#{cidadeController.cidade.id != null}"/>
 					<h:inputText id="id" 
-						 value="#{bairroController.bairro.id}"
-						 rendered="#{bairroController.bairro.id != null}"
+						 value="#{cidadeController.cidade.id}"
+						 rendered="#{cidadeController.cidade.id != null}"
 						 readonly="true"/>
 						 
 					<h:outputLabel value="Nome:" for="nome"/>
 					<h:inputText id="nome" 
-						 value="#{bairroController.bairro.nome}" 
+						 value="#{cidadeController.cidade.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome é obrigatorio" />
-						 
-					<h:outputLabel value="Cidade:" for="cidade"/>	 
-					<h:selectOneMenu 
-						 id="cidade" 
-						 value="#{bairroController.bairro.cidade}" 
-						 converter="entityConverter" 
-						 required="true" 
-						 requiredMessage="A Cidade é obrigatoria" > 
-							<f:selectItem itemLabel="Selecione uma cidade" itemValue="" />
-                        	<f:selectItems value="#{bairroController.cidadesSelect}" var="p" itemLabel="#{p.cidade}" itemValue="p.id"/>
-                    </h:selectOneMenu>  	 
 					
 					<p:growl id="messages" />
 					
 					<f:facet name="footer">
-						<h:commandButton value="Salvar" action="#{bairroController.salvar}">
+						<h:commandButton value="Salvar" action="#{cidadeController.salvar}">
 							<f:ajax execute="@form" render="@form :tabela" />
 						</h:commandButton>
 					</f:facet>
@@ -62,31 +51,28 @@
 			</fieldset>
 		</h:form>
 			
+		<h2>Listagem de cidades</h2>
 		<h:form id="tabela">
-			<p:dataTable value="#{bairroController.bairros}" var="bairro"
+			<p:dataTable value="#{cidadeController.cidades}" var="cidade"
 				styleClass="dados" rowClasses="impar,par" >
+				
 				<f:facet name="header">
-			        Lista de Bairros
+			        Lista de Cidades
 			    </f:facet>
-				
-				<p:column>
-					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
-					#{bairro.nome}
-				</p:column>
-				
+			    
 				<p:column>
 					<f:facet name="header"><h:outputText value="Cidade" /></f:facet>
-					#{bairro.cidade.nome}
+					#{cidade.nome}
 				</p:column>
 				
 				<p:column>
 					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
-					<h:commandLink action="#{bairroController.excluir(bairro)}">
+					<h:commandLink action="#{cidadeController.excluir(cidade)}">
 						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
 						<f:ajax render="@form" />
 						<f:setPropertyActionListener 
-							target="#{bairroController.bairro}" 
-							value="#{bairro}"/>
+							target="#{cidadeController.cidade}" 
+							value="#{cidade}"/>
 					</h:commandLink>
 				</p:column>
 				
@@ -94,14 +80,15 @@
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
 					<h:commandLink>
 					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
-						<f:ajax render="@form :dadosBairro" />
+						<f:ajax render="@form :dadosCidade" />
 						<f:setPropertyActionListener 
-							target="#{bairroController.bairro}" 
-							value="#{bairro}"/>
+							target="#{cidadeController.cidade}" 
+							value="#{cidade}"/>
 					</h:commandLink>
 				</p:column>
 				
 			</p:dataTable>
+			
 		</h:form>
 	
 	</div>

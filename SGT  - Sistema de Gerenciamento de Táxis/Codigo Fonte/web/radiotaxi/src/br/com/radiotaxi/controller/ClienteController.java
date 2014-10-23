@@ -1,26 +1,47 @@
 package br.com.radiotaxi.controller;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import br.com.radiotaxi.model.bean.Bairro;
 import br.com.radiotaxi.model.bean.Cliente;
-import br.com.radiotaxi.model.bean.Estado;
 import br.com.radiotaxi.model.dao.ClienteDAO;
 import br.com.radiotaxi.model.dao.DAO;
 
 @ViewScoped
 @ManagedBean
 public class ClienteController  implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
 	//Atributos devem ser iniciados
 	private Cliente cliente = new Cliente();
 	public List<Cliente> clientes;
-	private Object session;
+	
+	private List<SelectItem> bairrosSelect;
 	
 	public ClienteController () {
 		System.out.println("Instanciou ClienteBean!");
+	}
+	
+	public List<SelectItem> getBairrosSelect() {
+		if(this.bairrosSelect == null){
+			bairrosSelect = new ArrayList<SelectItem>();
+			List<Bairro> listaBairros = new DAO<Bairro>(Bairro.class).listaTodos();
+			if(listaBairros != null && !listaBairros.isEmpty()){
+				SelectItem item;
+				for(Bairro bairroLista : listaBairros){
+					item = new SelectItem(bairroLista, 	bairroLista.getNome());
+					bairrosSelect.add(item);
+				}
+			}
+		}
+		
+		return bairrosSelect;
 	}
 	
 	public void salvar(){
@@ -70,5 +91,7 @@ public class ClienteController  implements Serializable{
         	DAO<Bairro> daodao = new DAO<Bairro>(Bairro.class);
             daodao.listaTodos();
         }
+
     }
+
 }

@@ -3,8 +3,13 @@ package br.com.radiotaxi.model.bean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import br.com.radiotaxi.converter.AbstractEntity;
 @Entity
-public class Cliente {
+public class Cliente extends AbstractEntity {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue
@@ -16,9 +21,19 @@ public class Cliente {
 	private String datanascimento;
 	private String logradouro;
 	private Integer cep;
-	private String bairro;
 	private String cidade;
 	private String uf;
+	
+	@ManyToOne
+	private Bairro bairro;
+	
+	
+	public Bairro getBairro() {
+		return bairro;
+	}
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
 	
 	
 	//Metodos de GET e SET...
@@ -64,12 +79,6 @@ public class Cliente {
 	public void setCep(Integer cep) {
 		this.cep = cep;
 	}
-	public String getBairro() {
-		return bairro;
-	}
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
 	public String getCidade() {
 		return cidade;
 	}
@@ -88,4 +97,7 @@ public class Cliente {
 	public void setDatanascimento(String datanascimento) {
 		this.datanascimento = datanascimento;
 	}
+	
+	
+	
 }

@@ -1,23 +1,49 @@
 package br.com.radiotaxi.controller;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import br.com.radiotaxi.model.bean.Bairro;
+import br.com.radiotaxi.model.bean.Cidade;
 import br.com.radiotaxi.model.dao.DAO;
 
 @ViewScoped
 @ManagedBean
 public class BairroController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	//Atributos devem ser iniciados
 	private Bairro bairro = new Bairro();
 	public List<Bairro> bairros;
 	
+	private List<SelectItem> cidadesSelect;
+	
 	public BairroController() {
 		System.out.println("Instanciou BairroBean!");
+	}
+	
+	public List<SelectItem> getCidadesSelect() {
+		if(this.cidadesSelect == null){
+			cidadesSelect = new ArrayList<SelectItem>();
+			List<Cidade> listaCidades = new DAO<Cidade>(Cidade.class).listaTodos();
+			if(listaCidades != null && !listaCidades.isEmpty()){
+				SelectItem item;
+				for(Cidade cidadeLista : listaCidades){
+					item = new SelectItem(cidadeLista, 	cidadeLista.getNome());
+					cidadesSelect.add(item);
+				}
+			}
+		}
+		
+		return cidadesSelect;
 	}
 	
 	public void salvar(){
@@ -57,6 +83,5 @@ public class BairroController implements Serializable{
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
-
 	
 }

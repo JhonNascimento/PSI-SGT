@@ -2,27 +2,21 @@ package br.com.radiotaxi.model.bean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import br.com.radiotaxi.converter.AbstractEntity;
 @Entity
-public class Bairro extends AbstractEntity {
-    private static final long serialVersionUID = -634596699520431454L;
+public class Cidade extends AbstractEntity {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 677060029592189345L;
 	
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String nome;
 	
-	@ManyToOne
-	private Cidade cidade;
-	
-	public Cidade getCidade() {
-		return cidade;
-	}
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
 	//Metodos de GET e SET...
 	public Long getId() {
 		return id;
@@ -36,5 +30,4 @@ public class Bairro extends AbstractEntity {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
 }
