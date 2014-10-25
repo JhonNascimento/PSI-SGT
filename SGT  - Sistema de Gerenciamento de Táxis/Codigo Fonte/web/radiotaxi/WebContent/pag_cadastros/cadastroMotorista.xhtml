@@ -9,6 +9,18 @@
 		<h:head>
 			<h:outputStylesheet library="css" name="grid.css"/>
 			<h:outputStylesheet library="css" name="style.css"/>
+			
+		<!-- 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+ 	    	<h:outputScript library="js/plugins/maskedinput" name="jquery.maskedinput.min.js" />
+			
+			<script>
+			$ = jQuery.noConflict();  
+				$(function() {  
+					$('.data_nascimento').mask('99/99/9999');  
+				})
+	  		</script>   -->
+			
+			
 		</h:head>
 	
 	<div id="blocoConteudo">
@@ -20,55 +32,78 @@
 					<h:outputText value="Editar Motorista" rendered="#{not empty motoristaController.motorista.id}"/>
 			</h2>
 			
-			<fieldset>
-				<legend>Dados do Motorista</legend>
+		<fieldset>
+			<legend>Dados do Motorista</legend>
 				
 				<h:panelGrid columns="4">
 				
-					<h:outputLabel value="Id:" for="id" 
+					<p:outputLabel value="Id:" for="id" 
 					     rendered="#{motoristaController.motorista.id != null}"/>
-					<h:inputText id="id" 
+					<p:inputText id="id" 
 						 value="#{motoristaController.motorista.id}"
 						 rendered="#{motoristaController.motorista.id != null}"
 						 readonly="true"/>
 						 
-					<h:outputLabel value="Nome:" for="nome"/>
-					<h:inputText id="nome" 
+					<p:outputLabel value="Nome:" for="nome"/>
+					<p:inputText 
+						 id="nome" 
 						 value="#{motoristaController.motorista.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome é obrigatorio" />
 						 
-					<h:outputLabel value="Telefone:" for="telefone"/>
-					<h:inputText id="telefone" 
-						 value="#{motoristaController.motorista.telefone}" 
+					<p:outputLabel value="Dt Nasc.:" for="dtnascimento"/>
+					<p:inputMask
+						 id="dtnascimento"
+						 mask="99/99/9999" 
+						 value="#{motoristaController.motorista.datanascimento}" 
 						 required="true" 
-						 requiredMessage="O Telefone é obrigatorio" />
+						 requiredMessage="Data Nascimento é obrigatorio" />
 					
-					<h:outputLabel value="Numero Habilitacao:" for="Numero Habilitacao"/>
-					<h:inputText id="cnh" 
+					<p:outputLabel value="CNH:" for="cnh"/>
+					<p:inputText 
+						 id="cnh" 
+						 required="true" 
+						 requiredMessage="CNH é obrigatorio"
 						 value="#{motoristaController.motorista.cnh}" />
 					
-					<h:outputLabel value="Rg:" for="Rg"/>
-					<h:inputText id="rg" 
+					<p:outputLabel value="Rg:" for="rg"/>
+					<p:inputText 
+						 id="rg" 
 						 value="#{motoristaController.motorista.rg}" 
 						 required="true" 
 						 requiredMessage="O Rg é obrigatorio"/>
 					
-					<h:outputLabel value="Logradouro:" for="logradouro"/>
-					<h:inputText id="logradouro" 
+					<p:outputLabel value="Logradouro:" for="logradouro"/>
+					<p:inputText 
+						 id="logradouro" 
 						 value="#{motoristaController.motorista.logradouro}" 
 						 required="true" 
 						 requiredMessage="O Logradouro é obrigatorio" />
 						 
-					<h:outputLabel value="CEP:" for="cep"/>
-					<h:inputText id="cep" 
+					<p:outputLabel value="CEP:" for="cep"/>
+					<p:inputMask 
+						 id="cep"
+						 mask="99999-999" 
 						 value="#{motoristaController.motorista.cep}" />
-					
-					<h:outputLabel value="Dt Nascimento:" for="Dt Nascimento:"/>
-					<h:inputText id="data_nascimento" 
-						 value="#{motoristaController.motorista.datanascimento}" 
+						 
+					<p:outputLabel value="Bairro:" for="bairro"/>	 
+					<p:selectOneMenu 
+						 id="bairro" 
+						 value="#{motoristaController.motorista.bairro}" 
+						 converter="entityConverter" 
 						 required="true" 
-						 requiredMessage="Data Nascimento é obrigatorio" />
+						 requiredMessage="O Bairro é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
+                        	<f:selectItems value="#{motoristaController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
+                    </p:selectOneMenu>  
+                    
+                    <p:outputLabel value="Telefone:" for="telefone"/>
+					<p:inputMask
+						 id="telefone"
+						 mask="(99)9999-9999" 
+						 value="#{motoristaController.motorista.telefone}" 
+						 required="true" 
+						 requiredMessage="O Telefone é obrigatorio" />	 
 					 
 					<p:growl id="messages" />
 					
@@ -79,8 +114,9 @@
 					</f:facet>
 					
 				</h:panelGrid>
-			</fieldset>
-		</h:form>
+		</fieldset>
+		
+	</h:form>
 			
 		<h:form id="tabela">
 			<p:dataTable value="#{motoristaController.motoristas}" var="motorista"
@@ -96,8 +132,8 @@
 				</p:column>
 				
 				<p:column>
-					<f:facet name="header"><h:outputText value="Telefone" /></f:facet>
-					#{motorista.telefone}
+					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
+					#{motorista.bairro.nome}
 				</p:column>
 				
 				<p:column>

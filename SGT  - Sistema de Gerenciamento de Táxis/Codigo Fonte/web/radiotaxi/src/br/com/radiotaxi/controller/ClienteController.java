@@ -3,8 +3,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import br.com.radiotaxi.model.bean.Bairro;
@@ -53,6 +55,7 @@ public class ClienteController  implements Serializable{
 		}
 		this.cliente = new Cliente();
 		this.clientes = dao.listaTodos();
+		FacesContext.getCurrentInstance().addMessage("messages:id",new FacesMessage("Sucesso!")); 
 	}
 	
 	public List<Cliente> getClientes() {

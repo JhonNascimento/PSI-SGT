@@ -22,9 +22,9 @@
 			<fieldset>
 				<legend>Cadastrar Usuario</legend>
 				
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="4">
 				
-					<h:outputText value="Id:" for="id" 
+					<h:outputLabel value="Id:" for="id" 
 					     rendered="#{usuarioController.usuario.id != null}"/>
 					<h:inputText id="id" 
 						 value="#{usuarioController.usuario.id}"
@@ -78,8 +78,8 @@
 			    </f:facet>
 				
 				<p:column>
-					<f:facet name="header">Login:</f:facet>
-					<h:outputLink value="#{usuario.login}">#{usuario.login}</h:outputLink>
+					<f:facet name="header">Login</f:facet>
+					<h:outputText value="#{usuario.login}">#{usuario.login}</h:outputText>
 				</p:column>
 				
 			 	<p:column>
@@ -88,7 +88,7 @@
 				</p:column> 
 				
 				<p:column>
-					<f:facet name="header">Email:</f:facet>
+					<f:facet name="header">Email</f:facet>
 					<h:outputLink value="mailto:#{usuario.email}">#{usuario.email}</h:outputLink>
 				</p:column> 
 				

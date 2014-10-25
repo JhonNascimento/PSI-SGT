@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import br.com.radiotaxi.model.bean.Cidade;
@@ -55,6 +57,7 @@ public class CidadeController implements Serializable{
 		}
 		cidade  = new Cidade();
 		this.cidades = dao.listaTodos();
+		FacesContext.getCurrentInstance().addMessage("messages:id",new FacesMessage("Sucesso!")); 
 	}
 	
 	@PostConstruct

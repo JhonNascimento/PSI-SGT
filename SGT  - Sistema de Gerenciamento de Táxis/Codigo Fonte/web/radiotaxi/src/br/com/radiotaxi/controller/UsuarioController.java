@@ -3,8 +3,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.radiotaxi.model.bean.Usuario;
 import br.com.radiotaxi.model.dao.DAO;
@@ -37,6 +39,7 @@ public class UsuarioController implements Serializable{
 		}
 		this.usuario = new Usuario();
 		this.usuarios = dao.listaTodos();
+		FacesContext.getCurrentInstance().addMessage("messages:id",new FacesMessage("Sucesso!"));  
 	}
 
 	@PostConstruct

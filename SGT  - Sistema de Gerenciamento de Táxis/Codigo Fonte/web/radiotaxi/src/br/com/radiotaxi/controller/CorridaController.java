@@ -3,8 +3,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import br.com.radiotaxi.model.bean.Corrida;
 import br.com.radiotaxi.model.dao.DAO;
@@ -29,6 +31,7 @@ public class CorridaController implements Serializable{
 		}
 		corrida  = new Corrida();
 		this.corridas = dao.listaTodos();
+		FacesContext.getCurrentInstance().addMessage("messages:id",new FacesMessage("Sucesso!")); 
 	}
 	
 	@PostConstruct

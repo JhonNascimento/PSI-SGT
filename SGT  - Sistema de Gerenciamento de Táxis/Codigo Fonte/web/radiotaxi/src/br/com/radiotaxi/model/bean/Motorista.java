@@ -3,20 +3,36 @@ package br.com.radiotaxi.model.bean;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-@Entity
-public class Motorista {
+import javax.persistence.ManyToOne;
 
+import br.com.radiotaxi.converter.AbstractEntity;
+@Entity
+public class Motorista extends AbstractEntity{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6783004818514229413L;
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String nome;
-	private Integer telefone;
-	private Integer cnh;
-	private Integer rg;
+	private String telefone;
+	private String cnh;
+	private String rg;
 	private String datanascimento;
 	private String logradouro;
-	private Integer cep;
+	private String cep;
 	
+	@ManyToOne
+	private Bairro bairro;
+	
+	public Bairro getBairro() {
+		return bairro;
+	}
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -28,24 +44,6 @@ public class Motorista {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public Integer getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(Integer telefone) {
-		this.telefone = telefone;
-	}
-	public Integer getCnh() {
-		return cnh;
-	}
-	public void setCnh(Integer cnh) {
-		this.cnh = cnh;
-	}
-	public Integer getRg() {
-		return rg;
-	}
-	public void setRg(Integer rg) {
-		this.rg = rg;
 	}
 	public String getDatanascimento() {
 		return datanascimento;
@@ -59,11 +57,29 @@ public class Motorista {
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
-	public Integer getCep() {
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public String getCnh() {
+		return cnh;
+	}
+	public void setCnh(String cnh) {
+		this.cnh = cnh;
+	}
+	public String getRg() {
+		return rg;
+	}
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+	public String getCep() {
 		return cep;
 	}
-	public void setCep(Integer cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
+	
 }
