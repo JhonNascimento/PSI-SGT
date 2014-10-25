@@ -20,13 +20,21 @@ public class Motorista extends AbstractEntity{
 	private String telefone;
 	private String cnh;
 	private String rg;
-	private String datanascimento;
 	private String logradouro;
 	private String cep;
 	
 	@ManyToOne
 	private Bairro bairro;
 	
+	@ManyToOne
+	private Taxi taxi;
+	
+	public Taxi getTaxi() {
+		return taxi;
+	}
+	public void setTaxi(Taxi taxi) {
+		this.taxi = taxi;
+	}
 	public Bairro getBairro() {
 		return bairro;
 	}
@@ -44,12 +52,6 @@ public class Motorista extends AbstractEntity{
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public String getDatanascimento() {
-		return datanascimento;
-	}
-	public void setDatanascimento(String datanascimento) {
-		this.datanascimento = datanascimento;
 	}
 	public String getLogradouro() {
 		return logradouro;

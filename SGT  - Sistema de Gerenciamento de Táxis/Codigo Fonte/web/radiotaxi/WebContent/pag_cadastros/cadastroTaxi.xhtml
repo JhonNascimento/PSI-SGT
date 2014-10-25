@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+
+		<h:form id="dadosTaxi">
+			<h2>
+					<h:outputText value="Nova Taxi" rendered="#{empty taxiController.taxi.id}"/>
+					<h:outputText value="Editar Taxi" rendered="#{not empty taxiController.taxi.id}"/>
+			</h2>
+		
+			<fieldset>
+				<legend>Dados do taxi</legend>
+				
+				<h:panelGrid columns="4">
+				
+					<p:outputLabel value="Id:" for="id" 
+					     rendered="#{taxiController.taxi.id != null}"/>
+					<p:inputText id="id" 
+						 value="#{taxiController.taxi.id}"
+						 rendered="#{taxiController.taxi.id != null}"
+						 readonly="true"/>
+						 
+					<p:outputLabel value="Placa:" for="placa"/>
+					<p:inputMask 
+						 id="placa"
+						 mask="aaa-9999"
+						 placeholder="___-____" 
+						 value="#{taxiController.taxi.placa}" 
+						 required="true" 
+						 requiredMessage="A Placa é obrigatorio" />
+						 
+					
+					<p:outputLabel value="Ano:" for="ano"/>
+					<p:inputMask 
+						 id="ano"
+						 mask="9999"
+						 placeholder="____" 
+						 value="#{taxiController.taxi.ano}" 
+						 required="true" 
+						 requiredMessage="O Ano é obrigatorio" />
+					
+					
+					<p:outputLabel value="Marca:" for="marca"/>
+					<p:inputText 
+						 id="marca"
+						 placeholder="Digite marca do táxi" 
+						 value="#{taxiController.taxi.marca}" 
+						 required="true" 
+						 requiredMessage="A marca é obrigatorio" />
+						 
+						 
+					<p:outputLabel value="Modelo:" for="modelo"/>
+					<p:inputText 
+						 id="modelo"
+						 placeholder="Digite modelo do táxi" 
+						 value="#{taxiController.taxi.modelo}" 
+						 required="true" 
+						 requiredMessage="O Modelo é obrigatorio" />	 
+					
+					<p:growl id="messages" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{taxiController.salvar}">
+							<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+		
+		<h:form id="tabela">
+			<p:dataTable value="#{taxiController.taxis}" var="taxi"
+				styleClass="dados" rowClasses="impar,par" >
+				<f:facet name="header">
+			        Lista de Taxis
+			    </f:facet>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Placa" /></f:facet>
+					#{taxi.placa}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Ano" /></f:facet>
+					#{taxi.ano}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Marca" /></f:facet>
+					#{taxi.marca}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Modelo" /></f:facet>
+					#{taxi.modelo}
+				</p:column>
+						
+				<p:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<h:commandLink action="#{taxiController.excluir(taxi)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{taxiController.taxi}" 
+							value="#{taxi}"/>
+					</h:commandLink>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosTaxi" />
+						<f:setPropertyActionListener 
+							target="#{taxiController.taxi}" 
+							value="#{taxi}"/>
+					</h:commandLink>
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+	
+	</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>

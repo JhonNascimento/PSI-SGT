@@ -14,6 +14,10 @@ import br.com.radiotaxi.model.dao.DAO;
 @ViewScoped
 @ManagedBean
 public class CorridaController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3047538927512940307L;
 	//Atributos devem ser iniciados
 	private Corrida corrida = new Corrida();
 	public List<Corrida> corridas;

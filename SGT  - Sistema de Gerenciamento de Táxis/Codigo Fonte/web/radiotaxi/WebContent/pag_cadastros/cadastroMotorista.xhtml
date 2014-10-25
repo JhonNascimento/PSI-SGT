@@ -51,15 +51,6 @@
 						 value="#{motoristaController.motorista.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome é obrigatorio" />
-						 
-					<p:outputLabel value="Dt Nasc.:" for="dtnascimento"/>
-					<p:inputMask
-						 id="dtnascimento"
-						 placeholder="__/__/____"
-						 mask="99/99/9999" 
-						 value="#{motoristaController.motorista.datanascimento}" 
-						 required="true" 
-						 requiredMessage="Data Nascimento é obrigatorio" />
 					
 					<p:outputLabel value="CNH:" for="cnh"/>
 					<p:inputText 
@@ -91,6 +82,15 @@
 						 placeholder="_____-___"
 						 mask="99999-999" 
 						 value="#{motoristaController.motorista.cep}" />
+                    
+                    <p:outputLabel value="Telefone:" for="telefone"/>
+					<p:inputMask
+						 id="telefone"
+						 mask="(99)9999-9999" 
+						 placeholder="(__)____-____"
+						 value="#{motoristaController.motorista.telefone}" 
+						 required="true" 
+						 requiredMessage="O Telefone é obrigatorio" />	
 						 
 					<p:outputLabel value="Bairro:" for="bairro"/>	 
 					<p:selectOneMenu 
@@ -102,16 +102,19 @@
 						 requiredMessage="O Bairro é obrigatorio" > 
 							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
                         	<f:selectItems value="#{motoristaController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
-                    </p:selectOneMenu>  
+                    </p:selectOneMenu>
                     
-                    <p:outputLabel value="Telefone:" for="telefone"/>
-					<p:inputMask
-						 id="telefone"
-						 mask="(99)9999-9999" 
-						 placeholder="(__)____-____"
-						 value="#{motoristaController.motorista.telefone}" 
+                    <p:outputLabel value="Táxi:" for="taxi"/>	 
+					<p:selectOneMenu 
+						 id="taxi" 
+						 value="#{motoristaController.motorista.taxi}"
+						 style="width: 220px;"
+						 converter="entityConverter" 
 						 required="true" 
-						 requiredMessage="O Telefone é obrigatorio" />	 
+						 requiredMessage="O Táxi é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um táxi" itemValue="" />
+                        	<f:selectItems value="#{motoristaController.taxisSelect}" var="c" itemLabel="#{c.taxi}" itemValue="p.id"/>
+                    </p:selectOneMenu>     
 					 
 					<p:growl id="messages" />
 					
@@ -142,6 +145,11 @@
 				<p:column>
 					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
 					#{motorista.bairro.nome}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Táxi" /></f:facet>
+					#{motorista.taxi.placa} / #{motorista.taxi.modelo}
 				</p:column>
 				
 				<p:column>

@@ -3,9 +3,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import br.com.radiotaxi.converter.AbstractEntity;
+
 @Entity
-public class Corrida {
+public class Corrida extends AbstractEntity{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1093253701450978332L;
 	@Id
 	@GeneratedValue
 	private Long id;

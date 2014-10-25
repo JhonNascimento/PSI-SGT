@@ -15,6 +15,10 @@ import br.com.radiotaxi.model.dao.DAO;
 @ViewScoped
 @ManagedBean
 public class TuristicoController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6301877961887497879L;
 	//Atributos devem ser iniciados
 	private Turistico turistico = new Turistico();
 	public List<Turistico> turisticos;

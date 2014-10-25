@@ -21,6 +21,10 @@ public class UsuarioController implements Serializable{
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -2819330146478263535L;
+	/**
+	 * 
+	 */
 	
 	//Atributos devem ser iniciados
 	private Usuario usuario = new Usuario();

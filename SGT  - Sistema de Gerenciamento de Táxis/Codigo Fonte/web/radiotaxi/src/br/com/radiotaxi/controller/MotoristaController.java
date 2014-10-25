@@ -12,6 +12,7 @@ import javax.faces.model.SelectItem;
 
 import br.com.radiotaxi.model.bean.Bairro;
 import br.com.radiotaxi.model.bean.Motorista;
+import br.com.radiotaxi.model.bean.Taxi;
 import br.com.radiotaxi.model.dao.DAO;
 
 @ViewScoped
@@ -26,6 +27,7 @@ public class MotoristaController implements Serializable{
 		public List<Motorista> motoristas;
 		
 		private List<SelectItem> bairrosSelect;
+		private List<SelectItem> taxisSelect;
 		
 		public MotoristaController () {
 			System.out.println("Instanciou MotoristaBean!");
@@ -43,8 +45,22 @@ public class MotoristaController implements Serializable{
 					}
 				}
 			}
-			
 			return bairrosSelect;
+		}
+		
+		public List<SelectItem> getTaxisSelect() {
+			if(this.taxisSelect == null){
+				taxisSelect = new ArrayList<SelectItem>();
+				List<Taxi> listaTaxis = new DAO<Taxi>(Taxi.class).listaTodos();
+				if(listaTaxis != null && !listaTaxis.isEmpty()){
+					SelectItem item;
+					for(Taxi taxiLista : listaTaxis){
+						item = new SelectItem(taxiLista, 	taxiLista.getPlaca() + " / " + taxiLista.getModelo());
+						taxisSelect.add(item);
+					}
+				}
+			}
+			return taxisSelect;
 		}
 		
 		public void salvar(){
