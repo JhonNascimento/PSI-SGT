@@ -25,49 +25,62 @@
 				
 				<h:panelGrid columns="4">
 				
-					<h:outputLabel value="Id:" for="id" 
+					<p:outputLabel value="Id:" for="id" 
 					     rendered="#{clienteController.cliente.id != null}"/>
-					<h:inputText id="id" 
+					<p:inputText 
+						 id="id" 
 						 value="#{clienteController.cliente.id}"
 						 rendered="#{clienteController.cliente.id != null}"
 						 readonly="true"/>
 						 
-					<h:outputLabel value="Nome:" for="nome"/>
-					<h:inputText id="nome" 
+					<p:outputLabel value="Nome:" />
+					<p:inputText 
+						 id="nome" 
+						 placeholder="Digite o nome do cliente"
 						 value="#{clienteController.cliente.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome é obrigatorio" />
 						 
-					<h:outputLabel value="Telefone:" for="telefone"/>
-					<h:inputText id="telefone" 
+					<p:outputLabel value="Telefone:" for="telefone"/>
+					<p:inputMask placeholder="(__)____-____"
+						 id="telefone"
+						 mask="(99)9999-9999" 
 						 value="#{clienteController.cliente.telefone}" 
 						 required="true" 
 						 requiredMessage="O Telefone é obrigatorio" />
 					
-					<h:outputLabel value="Email:" for="email"/>
-					<h:inputText id="email" 
+					<p:outputLabel value="Email:" for="email"/>
+					<p:inputText 
+						 id="email"
+						 placeholder="Digite o email" 
 						 value="#{clienteController.cliente.email}" />
 					
-					<h:outputLabel value="Logradouro:" for="logradouro"/>
-					<h:inputText id="logradouro" 
-						 value="#{clienteController.cliente.logradouro}" 
-						 required="true" 
-						 requiredMessage="O Logradouro é obrigatorio" />
+					<p:outputLabel value="Logradouro:" for="logradouro"/>
+					<p:inputText 
+							 id="logradouro" 
+							 placeholder="Digite logradouro"
+							 value="#{clienteController.cliente.logradouro}" 
+							 required="true" 
+						 	 requiredMessage="O Logradouro é obrigatorio" />
 						 
-					<h:outputLabel value="CEP:" for="cep"/>
-					<h:inputText id="cep" 
-						 value="#{clienteController.cliente.cep}" />
+					<p:outputLabel value="CEP:" for="cep"/>
+					<p:inputMask 
+							id="cep"
+							placeholder="_____-___"
+							mask="99999-999" 
+						 	value="#{clienteController.cliente.cep}" />
 					
-					<h:outputLabel value="Bairro:" for="bairro"/>	 
-					<h:selectOneMenu 
+					<p:outputLabel value="Bairro:" for="bairro"/>	 
+					<p:selectOneMenu
 						 id="bairro" 
-						 value="#{clienteController.cliente.bairro}" 
+						 value="#{clienteController.cliente.bairro}"
+						 style="width: 220px;" 
 						 converter="entityConverter" 
 						 required="true" 
 						 requiredMessage="O Bairro é obrigatorio" > 
 							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
                         	<f:selectItems value="#{clienteController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
-                    </h:selectOneMenu>  
+                    </p:selectOneMenu>  
 						 
 					<p:growl id="messages" />
 					

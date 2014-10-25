@@ -26,21 +26,23 @@
 				
 				<h:panelGrid columns="2">
 				
-					<h:outputLabel value="Id:" for="id" 
+					<p:outputLabel value="Id:" for="id" 
 					     rendered="#{estadoController.estado.id != null}"/>
-					<h:inputText id="id" 
+					<p:inputText id="id" 
 						 value="#{estadoController.estado.id}"
 						 rendered="#{estadoController.estado.id != null}"
 						 readonly="true"/>
 						 
-					<h:outputLabel value="Nome:" for="nome"/>
-					<h:inputText id="nome" 
+					<p:outputLabel value="Nome:" for="nome"/>
+					<p:inputText id="nome"
+						 placeholder="Digite nome do estado" 
 						 value="#{estadoController.estado.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome é obrigatorio" />
 						 
-					<h:outputLabel value="Sigla:" for="sigla"/>
-					<h:inputText id="sigla" 
+					<p:outputLabel value="Sigla:" for="sigla"/>
+					<p:inputText id="sigla" 
+						 placeholder="Digite a sigla"
 						 value="#{estadoController.estado.sigla}" 
 						 required="true" 
 						 requiredMessage="A Sigla é obrigatoria" />	 

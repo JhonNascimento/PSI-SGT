@@ -26,29 +26,32 @@
 				
 				<h:panelGrid columns="2">
 				
-					<h:outputLabel value="Id:" for="id" 
+					<p:outputLabel value="Id:" for="id" 
 					     rendered="#{cidadeController.cidade.id != null}"/>
-					<h:inputText id="id" 
+					<p:inputText id="id" 
 						 value="#{cidadeController.cidade.id}"
 						 rendered="#{cidadeController.cidade.id != null}"
 						 readonly="true"/>
 						 
-					<h:outputLabel value="Nome:" for="nome"/>
-					<h:inputText id="nome" 
+					<p:outputLabel value="Nome:" for="nome"/>
+					<p:inputText 
+						 id="nome"
+						 placeholder="Digite nome da cidade" 
 						 value="#{cidadeController.cidade.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome é obrigatorio" />
 						 
-					<h:outputLabel value="Estado:" for="estado"/>	 
-					<h:selectOneMenu 
+					<p:outputLabel value="Estado:" for="estado"/>	 
+					<p:selectOneMenu 
 						 id="estado" 
+						 style="width: 220px;"
 						 value="#{cidadeController.cidade.estado}" 
 						 converter="entityConverter" 
 						 required="true" 
 						 requiredMessage="O Estado é obrigatorio" > 
 							<f:selectItem itemLabel="Selecione um estado" itemValue="" />
                         	<f:selectItems value="#{cidadeController.estadosSelect}" />
-                    </h:selectOneMenu>   
+                    </p:selectOneMenu>   
 					
 					<p:growl id="messages" />
 					

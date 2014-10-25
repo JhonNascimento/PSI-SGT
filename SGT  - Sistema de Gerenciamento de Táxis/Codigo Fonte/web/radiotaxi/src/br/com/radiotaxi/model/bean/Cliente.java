@@ -15,14 +15,10 @@ public class Cliente extends AbstractEntity {
 	@GeneratedValue
 	private Long id;
 	private String nome;
-	private Integer telefone;
-	private String classificacao;
+	private String telefone;
 	private String email;
-	private String datanascimento;
 	private String logradouro;
-	private Integer cep;
-	private String cidade;
-	private String uf;
+	private String cep;
 	
 	@ManyToOne
 	private Bairro bairro;
@@ -49,17 +45,11 @@ public class Cliente extends AbstractEntity {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Integer getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(Integer telefone) {
-		this.telefone = telefone;
-	}
-	public String getClassificacao() {
-		return classificacao;
-	}
-	public void setClassificacao(String classificacao) {
-		this.classificacao = classificacao;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone.replace("-","").replace("(", "").replace(")", "");
 	}
 	public String getEmail() {
 		return email;
@@ -73,31 +63,11 @@ public class Cliente extends AbstractEntity {
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
-	public Integer getCep() {
+	public String getCep() {
 		return cep;
 	}
-	public void setCep(Integer cep) {
-		this.cep = cep;
+	public void setCep(String cep) {
+		this.cep = cep.replace("-", "");
 	}
-	public String getCidade() {
-		return cidade;
-	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-	public String getUf() {
-		return uf;
-	}
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-	public String getDatanascimento() {
-		return datanascimento;
-	}
-	public void setDatanascimento(String datanascimento) {
-		this.datanascimento = datanascimento;
-	}
-	
-	
-	
+
 }
