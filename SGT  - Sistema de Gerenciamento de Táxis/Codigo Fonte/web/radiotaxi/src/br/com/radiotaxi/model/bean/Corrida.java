@@ -1,7 +1,12 @@
 package br.com.radiotaxi.model.bean;
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.radiotaxi.converter.AbstractEntity;
 
@@ -16,12 +21,36 @@ public class Corrida extends AbstractEntity{
 	@GeneratedValue
 	private Long id;
 	private String cliente;
-	private Integer telefone;
-	private String bairro;
 	private String logradouro;
-	private String motorista;
-	private String cidade;
+
+	@ManyToOne
+	private Motorista motorista;
 	
+	@ManyToOne
+	private Bairro bairro;
+	
+	public Bairro getBairro() {
+		return bairro;
+	}
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
+	}
+	@Temporal(TemporalType.DATE)
+	private Calendar data = Calendar.getInstance();
+	
+	public Motorista getMotorista() {
+		return motorista;
+	}
+	public void setMotorista(Motorista motorista) {
+		this.motorista = motorista;
+	}
+	
+	public Calendar getData() {
+		return data;
+	}
+	public void setData(Calendar data) {
+		this.data = data;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -35,35 +64,11 @@ public class Corrida extends AbstractEntity{
 	public void setCliente(String cliente) {
 		this.cliente = cliente;
 	}
-	public Integer getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(Integer telefone) {
-		this.telefone = telefone;
-	}
-	public String getBairro() {
-		return bairro;
-	}
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
 	public String getLogradouro() {
 		return logradouro;
 	}
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
-	}
-	public String getCidade() {
-		return cidade;
-	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-	public String getMotorista() {
-		return motorista;
-	}
-	public void setMotorista(String motorista) {
-		this.motorista = motorista;
 	}
 	
 }

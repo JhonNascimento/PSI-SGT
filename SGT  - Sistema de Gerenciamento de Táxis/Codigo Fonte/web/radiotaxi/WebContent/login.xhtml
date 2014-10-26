@@ -12,13 +12,21 @@
 			<h:form id="formLogin">
 
 				<p:fieldset>
-					<h:outputLabel for="usuarioLogin" value="Login:" />
-					<p:inputText id="usuarioLogin" value="#{loginController.usuario.login}"
-					required="true" requiredMessage="O login é obrigatorio" />
+					<h:outputLabel for="usuarioLogin" value="Usuário:" />
+					<p:inputText 
+							id="usuarioLogin"
+							placeholder="Digite seu usuário" 
+							value="#{loginController.usuario.login}"
+							required="true" 
+							requiredMessage="O login é obrigatorio" />
 
 					<h:outputLabel for="usuarioSenha" value="Senha:" />
-					<p:password id="usuarioSenha" value="#{loginController.usuario.senha}"
-					required="true" requiredMessage="A senha é obrigatorio" />
+					<p:password 
+							id="usuarioSenha"
+							placeholder="Digite sua senha" 
+							value="#{loginController.usuario.senha}"
+							required="true" 
+							requiredMessage="A senha é obrigatorio" />
 
 			 		<p:growl id="messages"/>
 

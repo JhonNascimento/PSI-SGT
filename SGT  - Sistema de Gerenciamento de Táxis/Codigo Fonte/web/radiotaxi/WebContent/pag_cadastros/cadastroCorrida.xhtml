@@ -24,44 +24,61 @@
 			<fieldset>
 				<legend>Cadastrar Corrida</legend>
 				
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="4">
 					
-					<h:outputLabel value="Id:" for="id" 
-					     rendered="#{corridaController.corrida.id != null}"/>
-					<h:inputText id="id" 
+					<p:outputLabel value="Id:" for="id" rendered="#{corridaController.corrida.id != null}"/>
+					<p:inputText 
+						 id="id"  
 						 value="#{corridaController.corrida.id}"
 						 rendered="#{corridaController.corrida.id != null}"
 						 readonly="true"/>
-				
-					<h:outputLabel value="Nome do Cliente:" for="cliente" />
-					<h:inputText id="cliente" 
-						 value="#{corridaController.corrida.cliente}"
-						 required="true"
-						 requiredMessage="Nome do cliente obrigatorio"  />
 						 
-					<h:outputLabel value="Telefone" for="telefone"/>
-					<h:inputText id="telefone" 
-						 value="#{corridaController.corrida.telefone}" 
-						 required="true" 
-						 requiredMessage="Telefone obrigatorio" />
+					<p:outputLabel value="Data:" for="data"/>
+					<p:inputText 
+							id="data"
+							readonly="true" 
+							disabled="true"
+							value="#{corridaController.corrida.data.time}" >
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+					</p:inputText>
+				
+				    <p:outputLabel value="Operador:" for="operador"/>
+					<p:inputText
+							id="operador" 
+							readonly="true" 
+							disabled="true"
+							value="#{loginController.usuario.login}" >
+					</p:inputText>  
 					
-					<h:outputLabel value="Logradouro:" for="logradouro"/>
-					<h:inputText id="logradouro" 
-						 value="#{corridaController.corrida.logradouro}" 
-						 required="false" 
-						 />
 					
-					<h:outputLabel value="Cidade:" for="cidade" />
-					<h:inputText id="cidade"
-						value="#{corridaController.corrida.cidade}"
-						required="true"
-						/>
+					<p:outputLabel value="Logradouro:" for="logradouro"/>
+					<p:inputText
+							id="logradouro" 
+							placeholder="Digite logradouro"
+							value="#{corridaController.corrida.logradouro}" >
+					</p:inputText> 
+					
+					<p:outputLabel value="Bairro:" for="bairro"/>	 
+					<p:selectOneMenu
+						 id="bairro" 
+						 value="#{corridaController.corrida.bairro}"
+						 style="width: 220px;" 
+						 converter="entityConverter" > 
+							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
+                        	<f:selectItems value="#{corridaController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
+                    </p:selectOneMenu>   
 						
-					<h:outputLabel value="Motorista:" for="motorista"/>
-					<h:inputText id="motorista" 
-						 value="#{corridaController.corrida.motorista}" 
+					<p:outputLabel value="Motorista:" for="motorista"/>	 
+					<p:selectOneMenu
+						 id="motorista" 
+						 value="#{corridaController.corrida.motorista}"
+						 style="width: 220px;" 
+						 converter="entityConverter" 
 						 required="true" 
-						 requiredMessage="Motorista obrigatorio" />
+						 requiredMessage="O Motorista é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um motorista" itemValue="" />
+                        	<f:selectItems value="#{corridaController.motoristasSelect}" var="m" itemLabel="#{m.motorista}" itemValue="m.id"/>
+                    </p:selectOneMenu>  
 					
 					<p:growl id="messages" />
 						 
@@ -82,25 +99,22 @@
 				<f:facet name="header">
 			        Lista de Corridas
 			    </f:facet>
+			    
+			    <p:column>
+					<f:facet name="header"><h:outputText value="Data" /></f:facet>
+					<h:outputText value="#{corridaController.corrida.data.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+				</p:column>
 				
 				<p:column>
-					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					<f:facet name="header"><h:outputText value="Cliente" /></f:facet>
 					#{corrida.cliente}
 				</p:column>
 				
 				<p:column>
-					<f:facet name="header"><h:outputText value="Telefone" /></f:facet>
-					#{corrida.telefone}
-				</p:column>
-				
-				<p:column>
-					<f:facet name="header"><h:outputText value="Cidade" /></f:facet>
-					#{corrida.cidade}
-				</p:column>
-				
-				<p:column>
 					<f:facet name="header"><h:outputText value="Motorista" /></f:facet>
-					#{corrida.motorista}
+					#{corrida.motorista.nome} / #{corrida.motorista.taxi.modelo}
 				</p:column>
 				
 				<p:column>
