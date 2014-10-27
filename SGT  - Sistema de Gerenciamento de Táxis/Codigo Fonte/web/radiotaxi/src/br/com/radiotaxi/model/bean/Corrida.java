@@ -20,23 +20,31 @@ public class Corrida extends AbstractEntity{
 	@Id
 	@GeneratedValue
 	private Long id;
-	private String cliente;
 	private String logradouro;
-
+	private String pagamento;
+	private String valor;
+	
 	@ManyToOne
 	private Motorista motorista;
 	
 	@ManyToOne
-	private Bairro bairro;
+	private Cliente cliente;
 	
-	public Bairro getBairro() {
-		return bairro;
-	}
-	public void setBairro(Bairro bairro) {
-		this.bairro = bairro;
-	}
 	@Temporal(TemporalType.DATE)
 	private Calendar data = Calendar.getInstance();
+
+	public String getValor() {
+		return valor;
+	}
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
+	public String getPagamento() {
+		return pagamento;
+	}
+	public void setPagamento(String pagamento) {
+		this.pagamento = pagamento;
+	}
 	
 	public Motorista getMotorista() {
 		return motorista;
@@ -57,18 +65,17 @@ public class Corrida extends AbstractEntity{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	public String getCliente() {
-		return cliente;
-	}
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
-	}
 	public String getLogradouro() {
 		return logradouro;
 	}
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 }

@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import br.com.radiotaxi.model.bean.Bairro;
+import br.com.radiotaxi.model.bean.Cliente;
 import br.com.radiotaxi.model.bean.Corrida;
 import br.com.radiotaxi.model.bean.Motorista;
 import br.com.radiotaxi.model.dao.DAO;
@@ -27,7 +27,7 @@ public class CorridaController implements Serializable{
 	public List<Corrida> corridas;
 	
 	private List<SelectItem> motoristasSelect;
-	private List<SelectItem> bairrosSelect;
+	private List<SelectItem> clientesSelect;
 	
 	public CorridaController() {
 		System.out.println("Instanciou CorridaBean!");
@@ -49,20 +49,20 @@ public class CorridaController implements Serializable{
 		return motoristasSelect;
 	}
 	
-	public List<SelectItem> getBairrosSelect() {
-		if(this.bairrosSelect == null){
-			bairrosSelect = new ArrayList<SelectItem>();
-			List<Bairro> listaBairros = new DAO<Bairro>(Bairro.class).listaTodos();
-			if(listaBairros != null && !listaBairros.isEmpty()){
+	public List<SelectItem> getClientesSelect() {
+		if(this.clientesSelect == null){
+			clientesSelect = new ArrayList<SelectItem>();
+			List<Cliente> listaClientes = new DAO<Cliente>(Cliente.class).listaTodos();
+			if(listaClientes != null && !listaClientes.isEmpty()){
 				SelectItem item;
-				for(Bairro bairroLista : listaBairros){
-					item = new SelectItem(bairroLista, 	bairroLista.getNome());
-					bairrosSelect.add(item);
+				for(Cliente clienteLista : listaClientes){
+					item = new SelectItem(clienteLista, clienteLista.getTelefone()+ " - " +clienteLista.getNome());
+					clientesSelect.add(item);
 				}
 			}
 		}
 		
-		return bairrosSelect;
+		return clientesSelect;
 	}
 	
 	public void salvar(){

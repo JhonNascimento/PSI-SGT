@@ -9,6 +9,28 @@
 		<h:head>
 			<h:outputStylesheet library="css" name="grid.css"/>
 			<h:outputStylesheet library="css" name="style.css"/>
+			<h:outputScript library="primefaces" name="jquery/jquery.js" />
+			<h:outputScript library="js" name="jquery.maskmoney.js" />
+			
+			<script>
+			jQuery(document).ready(function(){
+			    // binds form submission and fields to the validation engine
+
+			});
+			</script>
+			
+			<script>
+			function maskMoney(componente){
+						$(componente).maskMoney({symbol:"R$", decimal:",", thousands:"."});
+					}
+			</script>
+			
+			<script>
+				.highlight {
+				   background-color: #a8cb17;
+				}
+			</script>
+			
 		</h:head>
 	
 	<div id="blocoConteudo">
@@ -49,25 +71,7 @@
 							disabled="true"
 							value="#{loginController.usuario.login}" >
 					</p:inputText>  
-					
-					
-					<p:outputLabel value="Logradouro:" for="logradouro"/>
-					<p:inputText
-							id="logradouro" 
-							placeholder="Digite logradouro"
-							value="#{corridaController.corrida.logradouro}" >
-					</p:inputText> 
-					
-					<p:outputLabel value="Bairro:" for="bairro"/>	 
-					<p:selectOneMenu
-						 id="bairro" 
-						 value="#{corridaController.corrida.bairro}"
-						 style="width: 220px;" 
-						 converter="entityConverter" > 
-							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
-                        	<f:selectItems value="#{corridaController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
-                    </p:selectOneMenu>   
-						
+				
 					<p:outputLabel value="Motorista:" for="motorista"/>	 
 					<p:selectOneMenu
 						 id="motorista" 
@@ -79,23 +83,72 @@
 							<f:selectItem itemLabel="Selecione um motorista" itemValue="" />
                         	<f:selectItems value="#{corridaController.motoristasSelect}" var="m" itemLabel="#{m.motorista}" itemValue="m.id"/>
                     </p:selectOneMenu>  
+                    
+                    <p:outputLabel value="Cliente" for="cliente"/>	 
+					<p:selectOneMenu
+						 id="cliente" 
+						 value="#{corridaController.corrida.cliente}"
+						 style="width: 220px;" 
+						 converter="entityConverter" 
+						 required="true" 
+						 requiredMessage="O Cliente é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um cliente" itemValue="" />
+                        	<f:selectItems value="#{corridaController.clientesSelect}" var="c" itemLabel="#{c.cliente}" itemValue="c.id"/>
+                    </p:selectOneMenu>  
+                    
+                 </h:panelGrid>	  
+                 <h:panelGrid columns="2">
+                    
+						<p:outputLabel value="Logradouro:" for="logradouro" styleClass="logradouro_label"/>
+						<p:inputTextarea
+								style="width: 600px; height: 50px;"
+								styleClass="logradouro"
+								id="logradouro" 
+								placeholder="Digite logradouro caso cliente não se encontre em seu endereço"
+								value="#{corridaController.corrida.logradouro}" >
+						</p:inputTextarea> 
+					
+				</h:panelGrid>	  
+                 <h:panelGrid columns="4">
+                 		
+						<h:outputLabel value="Forma de Pagamento:" for="pagamento" rendered="#{corridaController.corrida.id != null}"/>
+						<p:selectOneMenu 
+							id="pagamento"
+							rendered="#{corridaController.corrida.id != null}"
+							value="#{corridaController.corrida.pagamento}">  
+				            <f:selectItem itemLabel="Selecione pagamento" itemValue="" />  
+				            <f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />  
+				            <f:selectItem itemLabel="Cartão Crédito" itemValue="Crédito" />  
+				            <f:selectItem itemLabel="Cartão Débito" itemValue="Débito" />  
+				        </p:selectOneMenu> 
+				        
+				        <p:outputLabel value="Valor Corrida" for="valor" rendered="#{corridaController.corrida.id != null}" />
+						<p:inputText
+								id="valor"
+								onfocus="maskMoney(this)"
+								rendered="#{corridaController.corrida.id != null}"
+								styleClass="valor" 
+								value="#{corridaController.corrida.valor}" >
+						</p:inputText>  
 					
 					<p:growl id="messages" />
 						 
 					<f:facet name="footer">
-						<h:commandButton value="Salvar" action="#{corridaController.salvar}">
+						<h:commandButton value="Salvar" action="#{corridaController.salvar}" styleClass="botao_salvar">
 						<f:ajax execute="@form" render="@form :tabela" />
 						</h:commandButton>
 					</f:facet>
-					
-				</h:panelGrid>
 				
+				</h:panelGrid>	
 			</fieldset>
 		</h:form>
 		
 		<h:form id="tabela">
-			<p:dataTable value="#{corridaController.corridas}" var="corrida"
-				styleClass="dados" rowClasses="impar,par" >
+			<p:dataTable value="#{corridaController.corridas}" 
+				var="corrida"
+				styleClass="dados" 
+				rowClasses="impar,par" >
+				
 				<f:facet name="header">
 			        Lista de Corridas
 			    </f:facet>
@@ -108,13 +161,28 @@
 				</p:column>
 				
 				<p:column>
-					<f:facet name="header"><h:outputText value="Cliente" /></f:facet>
-					#{corrida.cliente}
+					<f:facet name="header"><h:outputText value="Tel. / Cliente" /></f:facet>
+					#{corrida.cliente.telefone} / #{corrida.cliente.nome}  
 				</p:column>
 				
 				<p:column>
-					<f:facet name="header"><h:outputText value="Motorista" /></f:facet>
+					<f:facet name="header"><h:outputText value="Logradouro" /></f:facet>
+					#{corrida.logradouro}  
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Motorista / Veículo" /></f:facet>
 					#{corrida.motorista.nome} / #{corrida.motorista.taxi.modelo}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Pagamento" /></f:facet>
+					#{corrida.pagamento}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Valor (R$)" /></f:facet>
+					#{corrida.valor}
 				</p:column>
 				
 				<p:column>
@@ -130,7 +198,7 @@
 				
 				<p:column>
 					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
-					<h:commandLink>
+					<h:commandLink styleClass="alterar">
 					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
 						<f:ajax render="@form :dadosCorrida" />
 						<f:setPropertyActionListener 
