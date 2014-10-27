@@ -40,7 +40,7 @@
 			<fieldset>
 				<legend>Cadastrar Corrida</legend>
 				
-				<h:panelGrid columns="4">
+				<h:panelGrid columns="2">
 					
 					<p:outputLabel value="Id:" for="id" rendered="#{corridaController.corrida.id != null}"/>
 					<p:inputText 
@@ -48,6 +48,9 @@
 						 value="#{corridaController.corrida.id}"
 						 rendered="#{corridaController.corrida.id != null}"
 						 readonly="true"/>
+						 
+				 </h:panelGrid>	  
+                 <h:panelGrid columns="4">
 						 
 					<p:outputLabel value="Data:" for="data"/>
 					<p:inputText 

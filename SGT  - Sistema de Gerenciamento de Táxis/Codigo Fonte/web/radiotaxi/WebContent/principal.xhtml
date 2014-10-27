@@ -46,7 +46,7 @@
 						    	<p:menuitem value="Estado" icon="ui-icon ui-icon-document" url="/pag_cadastros/cadastroEstado.xhtml" />
 						    </p:submenu>
 						 <p:separator /> 
-					        <p:submenu label="Outros Links" icon="ui-icon-newwin">
+					        <p:submenu label="Outros Possíveis Links" icon="ui-icon-newwin">
 					            <p:menuitem value="Outro Link" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close" />
 					        </p:submenu>
 				        <p:separator />
@@ -57,7 +57,34 @@
                 </p:layoutUnit> 
                  
                 <p:layoutUnit position="center">  
-                   <div><ui:insert name="centro"> <h2>Bem Vindo ao Sistema - SGT</h2> </ui:insert></div>
+                   <div><ui:insert name="centro"> 
+                   
+                   			<h:graphicImage library="imagens" name="logo_bem_vindo.png" id="logo0" />
+
+			               <h:form id="frmMenu">
+			        			<h:panelGrid columns="4" cellspacing="10" width="100%">
+			        
+					                    <p:commandLink action="/pag_cadastros/cadastroCorrida.xhtml">
+					                   		<h:graphicImage library="imagens" name="novo_corrida.png" id="logo1" url="/pag_cadastros/cadastroCorrida.xhtml" />
+					                   	</p:commandLink>
+				                   	
+					                   	<p:commandLink action="/pag_cadastros/cadastroCliente.xhtml" >
+					                   		<h:graphicImage library="imagens" name="novo_cliente.png" id="logo2" url="/pag_cadastros/cadastroCliente.xhtml" />
+					                   	</p:commandLink>
+					                   	
+					                   	<p:commandLink action="/pag_cadastros/cadastroMotorista.xhtml" >
+					                   		<h:graphicImage library="imagens" name="novo_motorista.png" id="logo3" url="/pag_cadastros/cadastroMotorista.xhtml" />
+					                   	</p:commandLink>
+					                 	
+					                   	<p:commandLink action="/pag_cadastros/cadastroTaxi.xhtml" >
+					                   		<h:graphicImage library="imagens" name="novo_taxi.png" id="logo4" url="/pag_cadastros/cadastroTaxi.xhtml" />
+					                   	</p:commandLink>
+					                   	
+								 </h:panelGrid>
+					 	 	</h:form>               	
+		                	
+		           </ui:insert></div>     		
+	                		
                 </p:layoutUnit>  
             </p:layout>  
         </div>
