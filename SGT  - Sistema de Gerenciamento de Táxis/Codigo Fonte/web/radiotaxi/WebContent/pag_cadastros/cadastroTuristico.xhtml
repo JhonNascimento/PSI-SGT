@@ -26,36 +26,38 @@
 				
 				<h:panelGrid columns="4">
 				
-					<h:outputLabel value="Id:" for="id" 
+					<p:outputLabel value="Id:" for="id" 
 					     rendered="#{turisticoController.turistico.id != null}"/>
-					<h:inputText id="id" 
+					<p:inputText id="id" 
 						 value="#{turisticoController.turistico.id}"
 						 rendered="#{turisticoController.turistico.id != null}"
 						 readonly="true"/>
 						 
-					<h:outputLabel value="Nome:" for="nome"/>
-					<h:inputText id="nome" 
+					<p:outputLabel value="Nome:" for="nome"/>
+					<p:inputText id="nome" 
+						placeholder="Digite o nome do Ponto"
 						 value="#{turisticoController.turistico.nome}" 
 						 required="true" 
 						 requiredMessage="O Nome obrigatorio" />
 					
-					<h:outputLabel value="Logradouro:" for="logradouro"/>
-					<h:inputText id="logradouro" 
+					<p:outputLabel value="Logradouro:" for="logradouro"/>
+					<p:inputText id="logradouro"
+							placeholder="Digite logradouro" 
 						 value="#{turisticoController.turistico.logradouro}" 
 						 required="true" 
 						 requiredMessage="O logradouro obrigatorio" />
 					
-					<h:outputLabel value="Bairro:" for="bairro"/>
-					<h:inputText id="bairro" 
+					<p:outputLabel value="Bairro:" for="bairro"/>	 
+					<p:selectOneMenu 
+						 id="bairro" 
 						 value="#{turisticoController.turistico.bairro}" 
+						 converter="entityConverter" 
 						 required="true" 
-						 requiredMessage="O bairro obrigatorio" />
+						 requiredMessage="O Bairro é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
+                        	<f:selectItems value="#{turisticoController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
+                    </p:selectOneMenu>  
 					
-					<h:outputLabel value="Cidade:" for="cidade"/>
-					<h:inputText id="cidade" 
-						 value="#{turisticoController.turistico.cidade}" 
-						 required="true" 
-						 requiredMessage="Campo cidade obrigatorio" />
 						 
 					 <p:growl id="messages" />
 					
@@ -89,7 +91,7 @@
 				
 				<p:column>
 					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
-					#{turistico.bairro}
+					#{turistico.bairro.nome}
 				</p:column>
 			
 				<p:column>

@@ -1,13 +1,15 @@
 package br.com.radiotaxi.controller;
 import java.io.Serializable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
+import br.com.radiotaxi.model.bean.Bairro;
 import br.com.radiotaxi.model.bean.Turistico;
 import br.com.radiotaxi.model.dao.DAO;
 
@@ -15,16 +17,30 @@ import br.com.radiotaxi.model.dao.DAO;
 @ViewScoped
 @ManagedBean
 public class TuristicoController implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6301877961887497879L;
 	//Atributos devem ser iniciados
 	private Turistico turistico = new Turistico();
 	public List<Turistico> turisticos;
+	private List<SelectItem> bairrosSelect;
+
 	
 	public TuristicoController() {
 		System.out.println("Instanciou TuristicoBean!");
+	}
+	
+	public List<SelectItem> getBairrosSelect() {
+		if(this.bairrosSelect == null){
+			bairrosSelect = new ArrayList<SelectItem>();
+			List<Bairro> listaBairros = new DAO<Bairro>(Bairro.class).listaTodos();
+			if(listaBairros != null && !listaBairros.isEmpty()){
+				SelectItem item;
+				for(Bairro bairroLista : listaBairros){
+					item = new SelectItem(bairroLista, 	bairroLista.getNome());
+					bairrosSelect.add(item);
+				}
+			}
+		}
+		
+		return bairrosSelect;
 	}
 	
 	public void salvar(){
@@ -36,7 +52,6 @@ public class TuristicoController implements Serializable{
 		}
 		turistico  = new Turistico();
 		this.turisticos = dao.listaTodos();
-		FacesContext.getCurrentInstance().addMessage("messages:id",new FacesMessage("Sucesso!")); 
 	}
 	
 	@PostConstruct

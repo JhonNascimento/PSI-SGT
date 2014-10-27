@@ -1,8 +1,8 @@
 package br.com.radiotaxi.model.bean;
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 @Entity
 public class Turistico {
 	
@@ -10,9 +10,9 @@ public class Turistico {
 	@GeneratedValue
 	private Long id;
 	private String nome;
-	private String logradouro;
-	private String bairro;
-	private String cidade;
+	private String logradouro;	
+	@ManyToOne
+	private Bairro bairro;
 	
 	//Metodos de GET e SET...
 	public Long getId() {
@@ -33,16 +33,12 @@ public class Turistico {
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
-	public String getBairro() {
+	public Bairro getBairro() {
 		return bairro;
 	}
-	public void setBairro(String bairro) {
+	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
 	}
-	public String getCidade() {
-		return cidade;
+
 	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-}
+
