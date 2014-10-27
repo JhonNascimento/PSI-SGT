@@ -51,7 +51,7 @@
 					        </p:submenu>
 				        <p:separator />
 						    		<p:menuitem value="Logado como: #{loginController.usuario.login}" url="#"/>
-						        	<p:menuitem value="Sair" url="#" action="#{loginController.efetuaLogout}" icon="ui-icon ui-icon-power" />
+						        	<p:menuitem value="Sair" action="#{loginController.efetuaLogout}" ajax="false" icon="ui-icon ui-icon-power" />
 						</p:tieredMenu>
 					</h:form>
                 </p:layoutUnit> 
