@@ -24,7 +24,7 @@
 			<fieldset>
 				<legend>Dados da Negativação</legend>
 				
-				<h:panelGrid columns="10">
+				<h:panelGrid columns="2">
 				
 					<p:outputLabel value="Id:" for="id" 
 					     rendered="#{negativacaoController.negativacao.id != null}"/>
@@ -34,7 +34,9 @@
 						 readonly="true"/>
 						 
 					<p:outputLabel value="Data:" for="data"/>
-					<p:inputText id="data" 
+					<p:inputMask placeholder="__/__/____"
+					id="data" 
+					mask="99/99/9999" 
 						 value="#{negativacaoController.negativacao.data}" 
 						 required="true" 
 						 requiredMessage="A Data e obrigatoria" />
