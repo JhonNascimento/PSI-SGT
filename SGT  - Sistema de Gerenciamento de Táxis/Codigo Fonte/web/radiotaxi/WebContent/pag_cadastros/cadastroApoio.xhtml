@@ -1,0 +1,127 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+
+		<h:form id="dadosApoio">
+			<h2>
+					<h:outputText value="Novo Ponto de Apoio" rendered="#{empty apoioController.apoio.id}"/>
+					<h:outputText value="Editar Turistico" rendered="#{not empty apoioController.apoio.id}"/>
+			</h2>
+		
+			<fieldset>
+				<legend>Dados do Ponto de apoio</legend>
+				
+				<h:panelGrid columns="4">
+				
+					<p:outputLabel value="Id:" for="id" 
+					     rendered="#{apoioController.apoio.id != null}"/>
+					<p:inputText id="id" 
+						 value="#{apoioController.apoio.id}"
+						 rendered="#{apoioController.apoio.id != null}"
+						 readonly="true"/>
+						 
+					<p:outputLabel value="Nome:" for="nome"/>
+					<p:inputText id="nome" 
+						placeholder="Digite o nome do Ponto"
+						 value="#{apoioController.apoio.nome}" 
+						 required="true" 
+						 requiredMessage="O Nome obrigatorio" />
+					
+					<p:outputLabel value="Logradouro:" for="logradouro"/>
+					<p:inputText id="logradouro"
+							placeholder="Digite logradouro" 
+						 value="#{apoioController.apoio.logradouro}" 
+						 required="true" 
+						 requiredMessage="O logradouro obrigatorio" />
+					
+					<p:outputLabel value="Bairro:" for="bairro"/>	 
+					<p:selectOneMenu 
+						 id="bairro" 
+						 value="#{apoioController.apoio.bairro}" 
+						 converter="entityConverter" 
+						 required="true" 
+						 requiredMessage="O Bairro é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um bairro" itemValue="" />
+                        	<f:selectItems value="#{apoioController.bairrosSelect}" var="p" itemLabel="#{p.bairro}" itemValue="p.id"/>
+                    </p:selectOneMenu>  
+					
+						 
+					 <p:growl id="messages" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{apoioController.salvar}">
+							<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h:form id="tabela">
+			<p:dataTable value="#{apoioController.apoios}" var="apoio"
+				styleClass="dados" rowClasses="impar,par" >
+				
+				<f:facet name="header">
+			        Lista de Pontos de Apoio
+			    </f:facet>
+			    
+				<p:column>
+					<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+					#{apoio.nome}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Logradouro" /></f:facet>
+					#{apoio.logradouro}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Bairro" /></f:facet>
+					#{apoio.bairro.nome}
+				</p:column>
+			
+				<p:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<h:commandLink action="#{apoioController.excluir(apoio)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{apoioController.apoio}" 
+							value="#{apoio}"/>
+					</h:commandLink>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosApoio" />
+						<f:setPropertyActionListener 
+							target="#{apoioController.apoio}" 
+							value="#{apoio}"/>
+					</h:commandLink>
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+	
+	</div>
+</div>
+
+        </ui:define>
+    </ui:decorate>
+</html>
