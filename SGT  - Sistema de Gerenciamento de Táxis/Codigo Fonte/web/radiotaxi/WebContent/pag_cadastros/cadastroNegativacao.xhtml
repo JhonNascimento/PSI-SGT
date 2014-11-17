@@ -1,0 +1,139 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:decorate template="/principal.xhtml">
+        <ui:define name="centro">
+            
+		<h:head>
+			<h:outputStylesheet library="css" name="grid.css"/>
+			<h:outputStylesheet library="css" name="style.css"/>
+		</h:head>
+	
+	<div id="blocoConteudo">
+	<div class="container">
+
+
+		<h:form id="dadosNegativacao">
+			<h2>
+					<h:outputText value="Noova Negativacao" rendered="#{empty negativacaoController.negativacao.id}"/>
+					<h:outputText value="Editar Negativacao" rendered="#{not empty negativacaoController.negativacao.id}"/>
+			</h2>
+		
+			<fieldset>
+				<legend>Dados da Negativação</legend>
+				
+				<h:panelGrid columns="10">
+				
+					<p:outputLabel value="Id:" for="id" 
+					     rendered="#{negativacaoController.negativacao.id != null}"/>
+					<p:inputText id="id" 
+						 value="#{negativacaoController.negativacao.id}"
+						 rendered="#{negativacaoController.negativacao.id != null}"
+						 readonly="true"/>
+						 
+					<p:outputLabel value="Data:" for="data"/>
+					<p:inputText id="data" 
+						 value="#{negativacaoController.negativacao.data}" 
+						 required="true" 
+						 requiredMessage="A Data e obrigatoria" />
+						 
+					<p:outputLabel value="Cliente:" for="cliente"/>	 
+					<p:selectOneMenu 
+						 id="cliente" 
+						 value="#{negativacaoController.negativacao.cliente}" 
+						 converter="entityConverter" 
+						 required="true" 
+						 requiredMessage="O Cliente é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um cliente" itemValue="" />
+                        	<f:selectItems value="#{negativacaoController.clientesSelect}" var="p" itemLabel="#{p.cliente}" itemValue="p.id"/>
+                    </p:selectOneMenu> 
+					
+					<p:outputLabel value="Motorista:" for="motorista"/>	 
+					<p:selectOneMenu 
+						 id="motorista" 
+						 value="#{negativacaoController.negativacao.motorista}" 
+						 converter="entityConverter" 
+						 required="true" 
+						 requiredMessage="O Motorista é obrigatorio" > 
+							<f:selectItem itemLabel="Selecione um motorista" itemValue="" />
+                        	<f:selectItems value="#{negativacaoController.motoristasSelect}" var="p" itemLabel="#{p.motorista}" itemValue="p.id"/>
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Motivo:" for="motivo"/>
+					<p:inputText id="motivo" 
+						 value="#{negativacaoController.negativacao.motivo}" 
+						 required="true" 
+						 requiredMessage="O motivo e obrigatorio" />  
+		
+					<p:growl id="messages" />
+					
+					<f:facet name="footer">
+						<h:commandButton value="Salvar" action="#{negativacaoController.salvar}">
+							<f:ajax execute="@form" render="@form :tabela" />
+						</h:commandButton>
+					</f:facet>
+					
+				</h:panelGrid>
+			</fieldset>
+		</h:form>
+			
+		<h:form id="tabela">
+			<p:dataTable value="#{negativacaoController.negativacoes}" var="negativacao"
+				styleClass="dados" rowClasses="impar,par" >
+				
+				<f:facet name="header">
+			        Lista de Negativaçoes
+			    </f:facet>
+			    
+				<p:column>
+					<f:facet name="header"><h:outputText value="Data" /></f:facet>
+					#{negativacao.data}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Cliente" /></f:facet>
+					#{negativacao.cliente.nome}
+				</p:column>
+
+				<p:column>
+					<f:facet name="header"><h:outputText value="Motorista" /></f:facet>
+					#{negativacao.motorista.nome}
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Motivo" /></f:facet>
+					#{negativacao.motivo}
+				</p:column>
+							
+				<p:column>
+					<f:facet name="header"><h:outputText value="Remover" /></f:facet>
+					<h:commandLink action="#{negativacaoController.excluir(negativacao)}">
+						<p:graphicImage value="/resources/imagens/botao_excluir.png"/>
+						<f:ajax render="@form" />
+						<f:setPropertyActionListener 
+							target="#{negativacaoController.negativacao}" 
+							value="#{negativacao}"/>
+					</h:commandLink>
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header"><h:outputText value="Alterar" /></f:facet>
+					<h:commandLink>
+					<p:graphicImage value="/resources/imagens/botao_editar.png"/>
+						<f:ajax render="@form :dadosNegativacao" />
+						<f:setPropertyActionListener 
+							target="#{negativacaoController.negativacao}" 
+							value="#{negativacao}"/>
+					</h:commandLink>
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+	
+	</div>
+</div>
+        </ui:define>
+    </ui:decorate>
+</html>
